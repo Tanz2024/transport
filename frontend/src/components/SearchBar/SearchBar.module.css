@@ -1,0 +1,557 @@
+.searchContainer {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  flex: 1;
+  min-width: 100px;
+  padding: 0.75rem;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tab:hover {
+  background-color: #e0e0e0;
+}
+
+.activeTab {
+  background-color: #ffe100;
+  color: #000;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Radio Buttons */
+.radioGroup {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.radioGroup label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.radioGroup input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2ecc40;
+}
+
+/* Form Fields */
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.form select,
+.form input {
+  flex: 1 1 200px;
+  min-width: 160px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  background: #fff;
+}
+
+.form select:focus,
+.form input:focus {
+  outline: none;
+  border-color: #ffcc00;
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2);
+}
+
+/* Passenger Selector */
+.passengerWrapper {
+  position: relative;
+  flex: 1 1 200px;
+  min-width: 160px;
+}
+
+.passengerInput {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.passengerInput:hover,
+.passengerInput:focus {
+  box-shadow: 0 0 0 2px #ffe100;
+}
+
+/* Dropdown Container */
+.passengerDropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  min-width: 260px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Passenger Row Alignment */
+.passengerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+}
+
+.passengerRow:last-child {
+  margin-bottom: 0;
+}
+
+/* Label + Description */
+.passengerRow span {
+  flex: 1;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #333;
+  word-break: break-word;
+}
+
+.passengerRow small {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Counter Block */
+.counter {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.counter button {
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 8px;
+  color: #111;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.counter button:hover {
+  background: #ddd;
+}
+
+.counter span {
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+.counter button {
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 8px;
+  color: #111;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.counter button:hover {
+  background: #ddd;
+}
+
+.counter span {
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Submit Button */
+.searchButton {
+  flex: 1 1 200px;
+  max-width: 240px;
+  padding: 0.75rem 1.5rem;
+  background-color: #7bcf00;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.searchButton:hover {
+  background-color: #64b400;
+}
+
+/* --- FILTERS SIDEBAR --- */
+.sidebar {
+  background: #f8fafc;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  min-width: 220px;
+  max-width: 260px;
+  margin-right: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sidebar h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #22223b;
+}
+
+.filterGroup {
+  margin-bottom: 1.5rem;
+}
+
+.filterLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.7rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.filterLabel input[type="checkbox"] {
+  accent-color: #ffe100;
+  width: 18px;
+  height: 18px;
+}
+
+.filterLabel:hover {
+  color: #ffb300;
+}
+
+.filterIcon {
+  font-size: 1.2rem;
+  color: #2563eb;
+}
+
+/* --- AMENITIES --- */
+.amenitiesBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 0 0;
+  align-items: center;
+}
+
+.amenity {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  color: #1e293b;
+  border-radius: 7px;
+  padding: 5px 12px 5px 8px;
+  font-size: 0.98rem;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: background 0.18s;
+}
+
+.amenity.train {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+.amenity.bus {
+  background: #fffbe6;
+  color: #b59f00;
+}
+.amenity.ferry {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.amenityIcon {
+  font-size: 1.15em;
+  display: flex;
+  align-items: center;
+}
+
+/* --- AMENITIES TOOLTIP --- */
+.amenityTooltip {
+  position: relative;
+  display: inline-block;
+}
+.amenityTooltip .tooltipText {
+  visibility: hidden;
+  width: max-content;
+  background-color: #22223b;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 6px 12px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+.amenityTooltip:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* --- AMENITIES RESPONSIVE --- */
+@media (max-width: 600px) {
+  .tabs {
+    flex-direction: column;
+  }
+
+  .tab {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+
+  .searchButton {
+    width: 100%;
+  }
+
+  .radioGroup {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .passengerDropdown {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 320px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+    padding: 1.5rem;
+  }
+
+  .sidebar {
+    min-width: 0;
+    max-width: 100vw;
+    margin-right: 0;
+    padding: 1rem 0.5rem;
+  }
+  .amenitiesBar {
+    gap: 7px;
+    padding: 0 2px;
+  }
+  .amenity {
+    font-size: 0.93rem;
+    padding: 4px 8px 4px 6px;
+  }
+}
+
+/* --- MODERN PAGINATION (GOOGLE STYLE) --- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 2.5rem 0 1.5rem 0;
+  user-select: none;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.pageButton {
+  min-width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: #23272f;
+  font-size: 1.13rem;
+  font-weight: 500;
+  border-radius: 50%;
+  margin: 0 8px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  position: relative;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  outline: none;
+}
+
+.pageButton:hover,
+.pageButton:focus {
+  background: #ffe10033;
+  color: #23272f;
+  box-shadow: 0 2px 8px rgba(255, 225, 0, 0.13);
+}
+
+.activePage {
+  background: #ffe100;
+  color: #181818;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(255, 225, 0, 0.19);
+  border: 2px solid #ffd600;
+}
+
+.pageEllipsis {
+  min-width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bdbdbd;
+  font-size: 1.18rem;
+  pointer-events: none;
+  margin: 0 2px;
+}
+
+.pageLabel {
+  font-size: 1.04rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin-right: 1.1rem;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 600px) {
+  .pagination {
+    gap: 0.18rem;
+    margin: 1.2rem 0 0.7rem 0;
+  }
+  .pageButton, .pageEllipsis {
+    min-width: 32px;
+    height: 32px;
+    font-size: 0.98rem;
+    margin: 0 2px;
+  }
+  .pageLabel {
+    font-size: 0.97rem;
+    margin-right: 0.5rem;
+  }
+}
+
+/* --- PASSENGER FILTER ENHANCEMENT --- */
+.passengerFilter {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 1.1rem 1.7rem;
+  margin-bottom: 1.7rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+.passengerFilter label {
+  font-size: 1.07rem;
+  color: #374151;
+  font-weight: 500;
+  margin-right: 0.7rem;
+}
+.passengerFilter input[type="number"] {
+  width: 62px;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 1rem;
+  background: #fff;
+  margin-right: 0.5rem;
+  transition: border 0.18s;
+}
+.passengerFilter input[type="number"]:focus {
+  border: 1.5px solid #ffe100;
+  outline: none;
+}
+.passengerFilter .filterBtn {
+  background: linear-gradient(90deg, #ffe100 60%, #fffbe6 100%);
+  color: #23272f;
+  border: none;
+  border-radius: 7px;
+  padding: 0.65rem 1.3rem;
+  font-weight: 600;
+  font-size: 1.01rem;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.passengerFilter .filterBtn:hover {
+  background: #ffd600;
+  color: #000;
+}

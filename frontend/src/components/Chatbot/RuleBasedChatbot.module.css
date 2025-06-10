@@ -1,0 +1,123 @@
+.chatbotBox {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 320px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+.header {
+  background: #2563eb;
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background: #f9fafb;
+  min-height: 120px;
+  max-height: 260px;
+}
+.botMsg {
+  background: #e0e7ef;
+  color: #222;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  align-self: flex-start;
+  max-width: 90%;
+}
+.userMsg {
+  background: #2563eb;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  align-self: flex-end;
+  max-width: 90%;
+}
+.inputRow {
+  display: flex;
+  border-top: 1px solid #e5e7eb;
+  background: #f3f4f6;
+  padding: 0.5rem 0.7rem;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+}
+.inputRow input {
+  flex: 1;
+  border: 1.5px solid #e0e7ef;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  border-radius: 999px;
+  background: #fff;
+  outline: none;
+  transition: border 0.18s;
+  margin-right: 0.5rem;
+}
+.inputRow input:focus {
+  border: 1.5px solid #2563eb;
+}
+.inputRow button {
+  background: linear-gradient(90deg, #2563eb 70%, #60a5fa 100%);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 999px;
+  margin-left: 0;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.inputRow button:hover {
+  background: linear-gradient(90deg, #1d4ed8 70%, #60a5fa 100%);
+  box-shadow: 0 4px 16px rgba(37,99,235,0.13);
+}
+.chatbotIconBtn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+@media (max-width: 600px) {
+  .chatbotBox, .chatbotIconBtn {
+    right: 12px;
+    bottom: 12px;
+  }
+  .chatbotBox {
+    width: 98vw;
+    max-width: 360px;
+  }
+  .inputRow button {
+    padding: 0.7rem 1rem;
+    font-size: 0.97rem;
+  }
+}

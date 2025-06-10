@@ -1,0 +1,215 @@
+/* Cancellation Policy Page Styles */
+.policyPage {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #1b2430;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #ff7d00;
+}
+
+.section h2 {
+  color: #1b2430;
+  margin: 0 0 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.section ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.section li {
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.section li:last-child {
+  margin-bottom: 0;
+}
+
+.importantNote {
+  background: linear-gradient(135deg, #fee2e2 0%, #fef3c7 100%);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #fbbf24;
+  margin: 2rem 0;
+}
+
+.importantNote h3 {
+  color: #dc2626;
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.importantNote p {
+  color: #7c2d12;
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.contactInfo {
+  background: #f0f9ff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #0ea5e9;
+}
+
+.contactInfo h3 {
+  color: #0c4a6e;
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contactDetails p {
+  margin: 0;
+  color: #1e40af;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contactDetails a {
+  color: #ff7d00;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.contactDetails a:hover {
+  color: #f97316;
+  text-decoration: underline;
+}
+
+.footer {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 2rem;
+}
+
+.footer p {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .policyPage {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .section {
+    padding: 1rem;
+  }
+  
+  .section h2 {
+    font-size: 1.2rem;
+  }
+  
+  .importantNote,
+  .contactInfo {
+    padding: 1rem;
+  }
+  
+  .contactDetails {
+    gap: 0.75rem;
+  }
+  
+  .contactDetails p {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .policyPage {
+    box-shadow: none;
+    margin: 0;
+    padding: 1rem;
+  }
+  
+  .header {
+    border-bottom: 2px solid #000;
+  }
+  
+  .section {
+    background: transparent;
+    border-left: 3px solid #000;
+    page-break-inside: avoid;
+  }
+  
+  .importantNote,
+  .contactInfo {
+    background: transparent;
+    border: 2px solid #000;
+  }
+}

@@ -1,0 +1,75 @@
+/* === CSS RESET === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === BASE HTML/BODY === */
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #ffffff !important; /* FORCE WHITE */
+  color: #222;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* Account for fixed navbar */
+body {
+  padding-top: 80px;
+}
+
+/* === GLOBAL OVERRIDES (Prevent accidental dark modes) === */
+:root {
+  --primary-bg: #ffffff;
+  --text-color: #222222;
+  --accent-color: #ff7d00;
+}
+
+/* DO NOT ENABLE DARK THEME WITHOUT TOGGLE */
+body[data-theme='dark'] {
+  --primary-bg: #1b2430;
+  --text-color: #ffffff;
+}
+
+/* Reinforce white background if theme was applied */
+body,
+#root {
+  background-color: var(--primary-bg) !important;
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* === LINKS === */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* === CONTAINERS === */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* === TYPOGRAPHY === */
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+p   { font-size: 1rem; }
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  .container { padding: 0 12px; }
+  body { padding-top: 70px; }
+}
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+  body { padding-top: 60px; }
+}

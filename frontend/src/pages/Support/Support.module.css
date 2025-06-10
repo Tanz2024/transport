@@ -1,0 +1,69 @@
+.supportPage {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+.faqSection {
+  margin-bottom: 2.5rem;
+}
+.faqItem {
+  margin-bottom: 1rem;
+}
+.faqQuestion {
+  background: #f3f4f6;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.faqQuestion:hover {
+  background: #e0e7ef;
+}
+.faqAnswer {
+  background: #f9fafb;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0 0 6px 6px;
+  border-left: 3px solid #2563eb;
+  margin-top: 0.2rem;
+  font-size: 1rem;
+}
+.contactSection {
+  background: #f3f4f6;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.contactForm input,
+.contactForm textarea {
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+.contactForm button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.contactForm button:hover {
+  background: #1d4ed8;
+}

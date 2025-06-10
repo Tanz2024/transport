@@ -1,0 +1,120 @@
+.footer {
+  background-color: #1b2430;
+  color: #ffffff;
+  padding: 40px 20px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  gap: 32px;
+}
+
+.column {
+  flex: 1 1 220px;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #ff7d00;
+}
+
+.column h4 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #ffc266;
+}
+
+.column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 12px;
+}
+
+.column li {
+  margin-bottom: 8px;
+}
+
+.column a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.column a:hover {
+  color: #ff7d00;
+}
+
+.newsletter input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+  background: #fff;
+  color: #222;
+}
+
+.newsletter button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0080;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.newsletter button:hover {
+  background-color: #e96b00;
+}
+
+.language {
+  margin-top: 16px;
+  color: #cccccc;
+}
+
+.language select {
+  margin-left: 8px;
+  padding: 6px;
+  border-radius: 4px;
+  border: none;
+  background: #fff;
+  color: #222;
+  font-weight: 600;
+}
+
+.social {
+  margin-top: 12px;
+}
+
+.social a {
+  display: inline-block;
+  margin-right: 12px;
+  color: white;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.social a:hover {
+  color: #ff7d00;
+}
+
+.bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-top: 30px;
+  padding-top: 12px;
+  font-size: 0.9rem;
+  color: #bbbbbb;
+}

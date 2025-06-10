@@ -1,0 +1,456 @@
+/* ----------------------------------------
+   Design Tokens
+---------------------------------------- */
+:root {
+  /* Colors */
+  --color-bg-light:    #f8fafc;
+  --color-white:       #ffffff;
+  --color-gray-100:    #f1f5f9;
+  --color-gray-200:    #e2e8f0;
+  --color-gray-300:    #d1d5db;
+  --color-gray-500:    #6b7280;
+  --color-gray-700:    #374151;
+  --color-black:       #111827;
+  --color-green-100:   #ecfdf5;
+  --color-green-500:   #10b981;
+  --color-green-600:   #059669;
+  --color-green-700:   #047857;
+  --color-red-100:     #fee2e2;
+  --color-red-500:     #dc2626;
+
+  /* Typography */
+  --font-body:         "Inter", "Segoe UI", sans-serif;
+  --fs-sm:             0.85rem;
+  --fs-base:           1rem;
+  --fs-lg:             1.15rem;
+
+  /* Spacing */
+  --space-xs:          0.5rem;
+  --space-sm:          0.75rem;
+  --space-md:          1rem;
+  --space-lg:          1.5rem;
+  --space-xl:          2rem;
+
+  /* Radii & Shadows */
+  --radius-sm:         6px;
+  --radius-md:         8px;
+  --radius-lg:         12px;
+  --shadow-sm:         0 1px 4px rgba(0,0,0,0.02);
+  --shadow-md:         0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg:         0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* ----------------------------------------
+   Base Reset & Utilities
+---------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--color-gray-700);
+  background: var(--color-bg-light);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* Accessible focus */
+:focus {
+  outline: 3px solid var(--color-green-500);
+  outline-offset: 2px;
+}
+
+/* ----------------------------------------
+   Layout
+---------------------------------------- */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+  padding: var(--space-xl);
+}
+
+.leftPanel {
+  flex: 2;
+  min-width: 300px;
+}
+
+.rightPanel {
+  flex: 1;
+  min-width: 280px;
+  background: var(--color-white);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Page header with sticky back button */
+.pageHeader {
+  display: flex;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-200);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: none;
+  border: none;
+  color: var(--color-gray-700);
+  cursor: pointer;
+  font-size: var(--fs-base);
+}
+
+/* ----------------------------------------
+   Sections & Cards
+---------------------------------------- */
+.section {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.section h3 {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--color-black);
+}
+
+/* Reservation summary box */
+.reservationBox {
+  background: var(--color-gray-100);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-sm);
+  color: var(--color-black);
+}
+
+/* Login banner (optional) */
+.loginBanner {
+  background: var(--color-gray-100);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.loginLink {
+  background: none;
+  border: none;
+  color: var(--color-green-500);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ----------------------------------------
+   Form Controls
+---------------------------------------- */
+.fieldWrapper {
+  margin-bottom: var(--space-lg);
+}
+
+.label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-size: var(--fs-sm);
+  color: var(--color-gray-700);
+}
+
+.input,
+select,
+textarea {
+  width: 100%;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  background: var(--color-gray-100);
+  font-size: var(--fs-base);
+  transition: border-color 0.2s;
+}
+
+.input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-green-500);
+}
+
+.row { /* for grouping inputs inline */ 
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+/* Checkboxes & radios */
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+
+/* ----------------------------------------
+   Buttons
+---------------------------------------- */
+.payButton {
+  display: block;
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--color-green-500);
+  color: var(--color-white);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.payButton:hover {
+  background: var(--color-green-600);
+}
+
+.billingBtn {
+  background: none;
+  border: 1px solid var(--color-green-500);
+  color: var(--color-green-500);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.billingBtn:hover {
+  background: var(--color-green-100);
+}
+
+/* ----------------------------------------
+   Summary & Timer
+---------------------------------------- */
+.timer {
+  background: var(--color-green-100);
+  color: var(--color-green-700);
+  text-align: center;
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+}
+
+.summary {
+  font-size: var(--fs-base);
+}
+
+.summary h4 {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+  font-size: var(--fs-lg);
+}
+
+.summaryBlock {
+  margin-bottom: var(--space-lg);
+}
+
+.summaryLine,
+.summaryLineTotal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-xs);
+}
+
+.summaryLineTotal strong {
+  font-weight: 700;
+}
+
+/* ----------------------------------------
+   Promo & Extras
+---------------------------------------- */
+.errorStripe {
+  background: var(--color-red-100);
+  border: 1px solid var(--color-red-500);
+  color: var(--color-red-500);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-sm);
+  text-align: center;
+}
+
+/* ----------------------------------------
+   Validation States
+---------------------------------------- */
+.errorInput {
+  border-color: var(--color-red-500) !important;
+  background: var(--color-red-100) !important;
+}
+
+.errorText {
+  font-size: var(--fs-sm);
+  color: var(--color-red-500);
+  margin-top: var(--space-xs);
+}
+
+.errorIcon {
+  position: absolute;
+  top: 50%;
+  right: var(--space-sm);
+  transform: translateY(-50%);
+  color: var(--color-red-500);
+  pointer-events: none;
+}
+
+.invalidCheckbox {
+  border: 1px solid var(--color-red-500);
+  background: var(--color-red-100);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+}
+
+/* ----------------------------------------
+   Skeleton Loading
+---------------------------------------- */
+.skeletonInput {
+  width: 100%;
+  height: 2.75rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-200) 50%, var(--color-gray-100) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.2s infinite;
+}
+
+@keyframes skeleton-loading {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* ----------------------------------------
+   Modal
+---------------------------------------- */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--color-white);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ----------------------------------------
+   Responsive
+---------------------------------------- */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: var(--space-lg);
+  }
+  .section {
+    padding: var(--space-md);
+  }
+  .payButton,
+  .billingBtn {
+    width: 100%;
+  }
+  .timer {
+    font-size: var(--fs-sm);
+  }
+}
+/* Payment methods grid */
+.paymentMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.paymentOption {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--white);
+  border: 1px solid var(--gray-border);
+  border-radius: 8px;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+.paymentOption:hover {
+  border-color: var(--green-main);
+}
+.paymentLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gray-text);
+}
+.paymentOption input[type="radio"] {
+  justify-self: end;
+  accent-color: var(--green-main);
+}
+
+/* Promo row: input + button */
+.promoRow {
+  display: flex;
+  gap: 0.5rem;
+}
+.promoRow input {
+  flex: 1;
+}
+
+/* Login banner */
+.loginBanner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--gray-light);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+.loginLink {
+  color: var(--green-main);
+  font-weight: 600;
+  text-decoration: none;
+}
+.loginLink:hover {
+  text-decoration: underline;
+}
+.termsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;              /* reduced gap */
+  margin-top: 0.5rem;       /* added if needed */
+  margin-bottom: 1.5rem;    /* can be adjusted for spacing below */
+}

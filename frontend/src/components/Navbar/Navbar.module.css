@@ -1,0 +1,212 @@
+/* --------------------
+   Theme Variables
+   -------------------- */
+:root {
+  --bg-light: #ffffff;
+  --bg-dark: #1b2430;
+  --text-light: #ffffff;
+  --text-dark: #222222;
+  --accent: #ff7d00;
+  --accent-hover: #e36a00;
+  --transition: 0.3s ease;
+}
+
+body[data-theme='light'] {
+  --bg: var(--bg-light);
+  --text: var(--text-dark);
+}
+body[data-theme='dark'] {
+  --bg: var(--bg-dark);
+  --text: var(--text-light);
+}
+
+/* --------------------
+   Navbar Layout
+   -------------------- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: var(--bg);
+  color: var(--text);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.spacer {
+  height: 56px;
+}
+
+/* --------------------
+   Inner Container
+   -------------------- */
+.inner {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+}
+
+/* --------------------
+   Branding
+   -------------------- */
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.brandMain {
+  color: var(--text);
+}
+.brandAccent {
+  color: var(--accent);
+}
+
+/* --------------------
+   Hamburger (Mobile)
+   -------------------- */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform var(--transition);
+}
+.hamburger:focus {
+  outline: 2px solid var(--accent);
+}
+
+/* --------------------
+   Navigation Links
+   -------------------- */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.link {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color var(--transition);
+}
+.link:hover,
+.active {
+  color: var(--accent);
+}
+.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+/* --------------------
+   Auth Buttons
+   -------------------- */
+.auth {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btnPrimary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.btnPrimary:hover {
+  background: var(--accent-hover);
+}
+
+/* --------------------
+   Theme Toggle
+   -------------------- */
+.themeToggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  transition: transform var(--transition);
+}
+.themeToggle:hover {
+  transform: rotate(20deg);
+}
+
+/* --------------------
+   Mobile Styles
+   -------------------- */
+@media (max-width: 900px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navLinks {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg);
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+    overflow-y: auto;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  .navLinks.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .auth {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .btnPrimary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .themeToggle {
+    align-self: flex-start;
+    margin-top: 1rem;
+  }
+}

@@ -1,0 +1,613 @@
+/* --------------------
+   Theme & Variables
+   -------------------- */
+:root {
+  --bg-surface: #fafbfc;
+  --bg-card: #ffffff;
+  --border: #ddd;
+  --text: #333;
+  --text-muted: #555;
+  --accent: #e91e63;
+  --accent-hover: #c2185b;
+  --shadow: rgba(0, 0, 0, 0.05);
+  --radius: 10px;
+  --gap: 1rem;
+  --transition: 0.3s ease;
+}
+
+/* --------------------
+   Page Layout
+   -------------------- */
+.page {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gap);
+  padding: var(--gap);
+  background: var(--bg-surface);
+}
+
+/* --------------------
+   Sidebar Filters
+   -------------------- */
+.sidebar {
+  flex: 0 0 220px;
+  padding-right: var(--gap);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px var(--shadow);
+  padding: 1.5rem 1rem;
+  min-width: 200px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.sidebar label {
+  display: block;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* --------------------
+   Results Container
+   -------------------- */
+.results {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------
+   Trip Card
+   -------------------- */
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 4px var(--shadow);
+  padding: var(--gap);
+  margin-bottom: var(--gap);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+/* Icon Column */
+.icon {
+  flex-shrink: 0;
+  font-size: 2rem;
+  color: var(--accent);
+  margin-right: var(--gap);
+  width: 40px;
+  text-align: center;
+}
+
+/* Details Column */
+.details {
+  flex: 1;
+}
+.details h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+.details p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Meta Column */
+.meta {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+.meta .price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text);
+}
+.meta .seats {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.meta button {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.meta button:hover {
+  background: var(--accent-hover);
+}
+
+/* --- Search Form Modern Styles --- */
+.searchForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px var(--shadow);
+  padding: 0.7rem 1rem 1rem 1rem; /* Reduce top padding for tightness under navbar */
+  margin-bottom: 1.5rem;
+  margin-top: 0; /* Remove any top margin */
+  align-items: flex-end;
+}
+@media (max-width: 600px) {
+  .searchForm {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.5rem 0.5rem 1rem 0.5rem; /* Even less top padding on mobile */
+    margin-top: 0;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 160px;
+  min-width: 120px;
+  position: relative;
+}
+.inputLabel {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+.inputIcon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+.inputField {
+  padding: 0.5rem 0.8rem 0.5rem 2.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background: #fff;
+  transition: border var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+.inputField:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(233,30,99,0.08);
+}
+
+.searchActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 0 0 120px;
+}
+.searchBtn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+  width: 100%;
+}
+.searchBtn:disabled {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+}
+.searchBtn:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+.resetBtn {
+  background: none;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  width: 100%;
+}
+.resetBtn:hover {
+  background: rgba(233,30,99,0.08);
+  color: var(--accent-hover);
+}
+
+/* --- Sidebar Filters --- */
+.sidebar {
+  flex: 0 0 220px;
+  padding-right: var(--gap);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px var(--shadow);
+  padding: 1.5rem 1rem;
+  min-width: 200px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.filterGroup {
+  margin-bottom: 1.5rem;
+}
+.filterGroupTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.filterCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background var(--transition);
+  border-radius: 6px;
+  padding: 0.2rem 0.4rem;
+}
+.filterCheckbox:hover, .filterCheckbox:focus-within {
+  background: #f5f5f5;
+}
+.filterCheckbox input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.3rem;
+}
+
+/* --- Amenities Filter --- */
+.amenitiesFilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.amenityChip {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #f3f3f3;
+  border-radius: 16px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  border: 1px solid #eee;
+  transition: background var(--transition), color var(--transition), border var(--transition);
+}
+.amenityChip.selected {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+}
+.amenityChip:focus {
+  outline: 2px solid var(--accent);
+}
+
+/* --- Skeleton Loader --- */
+.skeletonCard {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background: #f3f3f3;
+  border-radius: var(--radius);
+  padding: var(--gap);
+  margin-bottom: var(--gap);
+  min-height: 120px;
+  animation: skeletonPulse 1.2s infinite ease-in-out;
+}
+.skeletonIcon, .skeletonLine {
+  background: #e0e0e0;
+  border-radius: 6px;
+}
+.skeletonIcon {
+  width: 40px;
+  height: 40px;
+  margin-right: var(--gap);
+}
+.skeletonLine {
+  height: 16px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+@keyframes skeletonPulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* --- Card Route Summary --- */
+.routeSummary {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+/* --- Card Badges --- */
+.badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+/* --- Pagination --- */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+.pageButton {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border var(--transition);
+}
+.pageButton:disabled {
+  color: #bbb;
+  border-color: #eee;
+  cursor: not-allowed;
+}
+.activePage {
+  background: var(--accent);
+  color: #fff;
+  border: 1.5px solid var(--accent-hover);
+}
+.pageEllipsis {
+  color: #bbb;
+  font-size: 1.1rem;
+  padding: 0 0.3rem;
+}
+.pageLabel {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-right: 0.7rem;
+}
+
+/* --- Responsive Pagination --- */
+@media (max-width: 600px) {
+  .pagination {
+    gap: 0.1rem;
+  }
+  .pageButton, .activePage {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.95rem;
+  }
+  .pageLabel {
+    font-size: 0.95rem;
+    margin-right: 0.3rem;
+  }
+}
+
+/* --------------------
+   Mobile Responsive
+   -------------------- */
+@media (max-width: 600px) {
+  .page {
+    flex-direction: column;
+    padding: 0.5rem 0.2rem 1.2rem 0.2rem;
+    gap: 0.5rem;
+    background: #fff;
+  }
+  .sidebar {
+    width: 100%;
+    min-width: unset;
+    max-width: 100vw;
+    border-radius: 0 0 var(--radius) var(--radius);
+    border-right: none;
+    border-bottom: 1.5px solid var(--border);
+    box-shadow: none;
+    padding: 0.7rem 0.7rem 1.1rem 0.7rem;
+    margin-bottom: 0.7rem;
+    position: static;
+    top: unset;
+    max-height: unset;
+    overflow: visible;
+    background: #fff;
+  }
+  .filterGroup {
+    margin-bottom: 1.1rem;
+  }
+  .filterGroupTitle {
+    font-size: 1.08rem;
+    margin-bottom: 0.3rem;
+  }
+  .filterCheckbox {
+    font-size: 1rem;
+    padding: 0.18rem 0.3rem;
+    border-radius: 8px;
+  }
+  .amenitiesFilter {
+    gap: 0.3rem;
+  }
+  .amenityChip {
+    font-size: 1.05rem;
+    padding: 0.18rem 0.6rem;
+    border-radius: 14px;
+    min-width: 44px;
+    min-height: 36px;
+    justify-content: center;
+  }
+  .searchForm {
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 0.5rem 0.3rem 1rem 0.3rem;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 1px 4px var(--shadow);
+    border-radius: var(--radius);
+  }
+  .inputGroup {
+    min-width: 100%;
+    width: 100%;
+    margin-bottom: 0.2rem;
+  }
+  .inputField {
+    font-size: 1.08rem;
+    padding: 0.55rem 0.8rem 0.55rem 2.2rem;
+    border-radius: 8px;
+  }
+  .searchActions {
+    flex-direction: row;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .searchBtn, .resetBtn {
+    width: 100%;
+    font-size: 1.08rem;
+    padding: 0.7rem 0;
+    border-radius: 8px;
+  }
+  .results {
+    width: 100%;
+    padding: 0;
+  }
+  .card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.8rem 0.7rem 1.1rem 0.7rem;
+    margin-bottom: 0.8rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px var(--shadow);
+    border: 1px solid #f0f0f0;
+  }
+  .icon {
+    margin: 0 0 0.7rem 0;
+    font-size: 2.2rem;
+    width: 100%;
+    text-align: left;
+  }
+  .details h3 {
+    font-size: 1.13rem;
+  }
+  .meta {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.7rem;
+    gap: 0.5rem;
+  }
+  .meta .price {
+    font-size: 1.15rem;
+  }
+  .meta .seats {
+    font-size: 1rem;
+  }
+  .meta button {
+    font-size: 1.05rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 8px;
+  }
+  .routeSummary {
+    font-size: 1.08rem;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 0.95rem;
+    padding: 0.13rem 0.6rem;
+    border-radius: 7px;
+  }
+  .pagination {
+    gap: 0.1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pageButton, .activePage {
+    padding: 0.3rem 0.5rem;
+    font-size: 1.01rem;
+    border-radius: 7px;
+  }
+  .pageLabel {
+    font-size: 0.98rem;
+    margin-right: 0.3rem;
+  }
+  .skeletonCard {
+    flex-direction: column;
+    min-height: 90px;
+    padding: 0.7rem 0.7rem 0.7rem 0.7rem;
+    margin-bottom: 0.7rem;
+    border-radius: 10px;
+  }
+  .skeletonIcon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 0.5rem;
+  }
+  .amenitiesBar {
+    gap: 0.4rem;
+    margin-top: 0.2rem;
+  }
+  .amenity {
+    font-size: 1.01rem;
+    padding: 0.13rem 0.5rem 0.13rem 0.4rem;
+    border-radius: 10px;
+  }
+}
+
+/* AmenitiesBar icon/label fix */
+.amenitiesBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 0.3rem;
+}
+.amenity {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 1rem;
+  color: var(--text-muted);
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 0.18rem 0.7rem 0.18rem 0.5rem;
+  transition: background var(--transition), color var(--transition);
+}
+.amenityIcon {
+  display: flex;
+  align-items: center;
+  font-size: 1.1em;
+  margin-right: 0.3em;
+}
+.amenityTooltip {
+  display: inline;
+  font-size: 0.98em;
+  margin-left: 0.1em;
+}

@@ -1,0 +1,187 @@
+/* Profile.module.css */
+
+.profileContainer {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.error {
+  color: red;
+  background: #ffe5e5;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.backButton:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.avatarSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #eee;
+}
+
+.wallet {
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #0a8754;
+}
+
+textarea,
+input,
+select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ccc;
+  margin-top: 0.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+}
+
+.progressBar {
+  position: relative;
+  background-color: #f0f0f0;
+  height: 1rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.progressFill {
+  background: linear-gradient(to right, #0a8754, #00c896);
+  height: 100%;
+  transition: width 0.4s ease-in-out;
+}
+
+.progressLabel {
+  position: absolute;
+  right: 0.75rem;
+  top: -1.6rem;
+  font-size: 0.875rem;
+  color: #333;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.actions button {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.actions button:hover {
+  filter: brightness(1.1);
+}
+
+.save {
+  background-color: #0a8754;
+  color: white;
+}
+
+.deleteBtn {
+  background-color: #e63946;
+  color: white;
+}
+
+.logout {
+  background-color: #6c757d;
+  color: white;
+}
+
+@media screen and (max-width: 480px) {
+  .profileContainer {
+    padding: 1rem;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .progressLabel {
+    top: -1.2rem;
+    font-size: 0.75rem;
+  }
+}
+textarea {
+  resize: none;
+  height: auto;
+  min-height: 90px;
+  max-height: 200px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  line-height: 1.5;
+  background-color: #fafafa;
+  transition: border-color 0.2s;
+}
+
+textarea:focus {
+  border-color: #0a8754;
+  outline: none;
+  background-color: #fff;
+}
