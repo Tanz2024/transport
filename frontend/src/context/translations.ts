@@ -13,7 +13,26 @@ export const translations = {
     // Home
     homeTitle: 'Book Buses, Trains & Ferries Instantly',
     homeSubtitle: 'Malaysia’s #1 platform for real-time seat selection, instant payment, and seamless travel.',
-    home: 'Home',
+    homeTransportTitle: 'Our Premium Transport Services',
+    busAlt: 'Modern Bus Fleet',
+    busTitle: 'Bus',
+    busDesc: 'Travel in comfort and safety with our modern, air-conditioned bus fleet. Professional drivers, onboard amenities, and reliable schedules for city-to-city journeys across Malaysia.',
+    trainAlt: 'High-Speed Train',
+    trainTitle: 'Train',
+    trainDesc: 'Experience fast, scenic, and eco-friendly travel with our high-speed trains. Spacious seating, smooth rides, and direct connections between major destinations.',
+    ferryAlt: 'Ferry Service',
+    ferryTitle: 'Ferry',
+    ferryDesc: 'Enjoy a relaxing journey on the water with our safe and comfortable ferry services. Perfect for island getaways and cross-strait travel, with beautiful sea views.',
+    mapAlt: 'Malaysia Transport Map',
+    mapTitle: 'Seamless Connections Across Malaysia',
+    mapDesc: 'Our interactive route map helps you visualize and plan your journey with ease. Whether you’re traveling by bus, train, or ferry, you’ll find the best connections between cities, islands, and scenic destinations. Enjoy a smooth, premium experience from booking to arrival.',
+    touristTitle: 'Tourist & Vacation Highlights',
+    touristSunriseAlt: 'Tourist taking photo at sunrise over mountains and sea',
+    touristSunriseTitle: 'Island Sunrises',
+    touristSunriseDesc: 'Capture breathtaking sunrises and explore vibrant coastal cities—perfect for unforgettable vacation memories.',
+    touristHikerAlt: 'Hiker watching beautiful coastal scenery in Malaysia',
+    touristHikerTitle: 'Scenic Adventures',
+    touristHikerDesc: 'Discover Malaysia’s natural wonders, from lush mountains to pristine beaches, all easily accessible by our premium transport network.',
     // Support
     support: 'Support',
     faq: 'FAQs',
@@ -100,7 +119,6 @@ export const translations = {
     created: 'Created',
     passengerInfo: 'Passenger Info',
     tripDetails: 'Trip Details',
-    roundTrip: 'Round Trip',
     leg: 'Leg',
     seats: 'Seats',
     addToCalendar: 'Add to Calendar',
@@ -165,6 +183,24 @@ export const translations = {
     save: 'Save',
     deleteAccount: 'Delete Account',
     logout: 'Logout',
+    security: 'Security',
+    reviews: 'Reviews',
+    preferences: 'Preferences',
+    referralCode: 'Referral Code',
+    copied: 'Copied!',
+    copy: 'Copy',
+    verified: 'Verified',
+    changePassword: 'Change Password',
+    recentBookings: 'Recent Bookings',
+    noBookings: 'No bookings found.',
+    view: 'View',
+    recentReviews: 'Recent Reviews',
+    noReviews: 'No reviews yet.',
+    language: 'Language',
+    languageName: 'English',
+    notifications: 'Notifications',
+    enabled: 'Enabled',
+    changeAvatar: 'Change Avatar',
     // Register
     createAccount: 'Create Account',
     registeredSuccessfully: 'Registered successfully!',
@@ -173,7 +209,8 @@ export const translations = {
     confirmPassword: 'Confirm Password',
     registering: 'Registering...',
     registered: 'Registered',
-    register: 'Register',
+    emailAlreadyRegistered: 'Email already registered',
+    emailAlreadyExists: 'Email sudah ada, sila log masuk.',
     // Login
     loginTitle: 'Welcome Back',
     loginSubtitle: 'Login to your account',
@@ -190,6 +227,68 @@ export const translations = {
     signup: 'Sign Up',
     lightMode: 'Light Mode',
     darkMode: 'Dark Mode',
+    myBookings: 'My Bookings',
+    oneWay: 'One Way',
+    roundTrip: 'Round Trip',
+    datePlaceholder: 'dd/mm/yyyy',
+    returnDatePlaceholder: 'dd/mm/yyyy',
+    oneAdult: '1 Adult',
+    passengerSelection: 'Passenger Selection',
+    childrenAge: 'From 0 to 17 years old',
+    adults: 'Adult',
+    children: 'Child',
+    newsletterEmailPlaceholder: 'Enter your email',
+    // Why Book With Us Section
+    whyBookTitle: 'Why Book With TravelWithTanz',
+    whyBookSubtitle: 'Explore, book, and travel with full confidence.',
+    whyBookFeatures: [
+      {
+        number: '01.',
+        iconLabel: 'Trusted Network',
+        title: 'Trusted Network',
+        desc: 'Book across Southeast Asia’s most extensive land and sea routes with <span class="whyBookTooltip">verified partners<span class="whyBookTooltipText">All operators are vetted for safety, reliability, and service quality.</span></span>.'
+      },
+      {
+        number: '02.',
+        iconLabel: 'Safe & Secure',
+        title: 'Safe & Secure Travel',
+        desc: 'We prioritize your safety with GPS tracking, partner vetting, and emergency support.'
+      },
+      {
+        number: '03.',
+        iconLabel: 'Payment Methods',
+        title: 'Multiple Payment Methods',
+        desc: 'Pay your way — with cards, wallets, or cash — in your local currency.'
+      },
+      {
+        number: '04.',
+        iconLabel: 'Transparent Pricing',
+        title: 'Transparent Pricing',
+        desc: 'No hidden fees. No surprise charges. What you see is exactly what you pay.'
+      },
+      {
+        number: '05.',
+        iconLabel: 'Promotions',
+        title: 'Frequent Promotions',
+        desc: 'Enjoy regular discounts and seasonal deals to save more on every trip.'
+      },
+      {
+        number: '06.',
+        iconLabel: 'Loyalty Rewards',
+        title: 'Earn Loyalty Rewards',
+        desc: 'Collect <span class="whyBookTooltip">EasiPoints<span class="whyBookTooltipText">EasiPoints are loyalty points you earn for every booking. Redeem for discounts!</span></span> and redeem them for discounts on your next journey.'
+      }
+    ],
+    whyBookBannerTitle: 'Travel With Confidence',
+    whyBookBannerDesc: 'Every journey is backed by real-time tracking, verified operators, and 24/7 customer support — because your peace of mind is our priority.',
+    whyBookTrustBadges: [
+      { text: 'Partnered with Trusted Local Operators' },
+      { text: 'Trusted by 1M+ Users' },
+      { text: 'Data Secured via SSL' }
+    ],
+    whyBookTestimonialTitle: 'What Our Travelers Say',
+    whyBookTestimonialSubtitle: 'Real stories from real people who booked with confidence.',
+    whyBookLeaveReview: 'Leave Your Review',
   },
   ms: {
     // General
@@ -204,7 +303,26 @@ export const translations = {
     // Home
     homeTitle: 'Tempah Bas, Kereta Api & Feri Serta-merta',
     homeSubtitle: 'Platform #1 Malaysia untuk pemilihan tempat duduk masa nyata, pembayaran segera, dan perjalanan lancar.',
-    home: 'Laman Utama',
+    homeTransportTitle: 'Perkhidmatan Pengangkutan Premium Kami',
+    busAlt: 'Armada Bas Moden',
+    busTitle: 'Bas',
+    busDesc: 'Nikmati perjalanan yang selesa dan selamat dengan armada bas moden kami yang berhawa dingin. Pemandu profesional, kemudahan atas bas, dan jadual yang boleh dipercayai untuk perjalanan antara bandar di seluruh Malaysia.',
+    trainAlt: 'Kereta Api Berkelajuan Tinggi',
+    trainTitle: 'Kereta Api',
+    trainDesc: 'Alami perjalanan yang pantas, indah, dan mesra alam dengan kereta api berkelajuan tinggi kami. Tempat duduk luas, perjalanan lancar, dan sambungan terus antara destinasi utama.',
+    ferryAlt: 'Perkhidmatan Feri',
+    ferryTitle: 'Feri',
+    ferryDesc: 'Nikmati perjalanan santai di atas air dengan perkhidmatan feri kami yang selamat dan selesa. Sesuai untuk percutian pulau dan perjalanan rentas selat, dengan pemandangan laut yang indah.',
+    mapAlt: 'Peta Pengangkutan Malaysia',
+    mapTitle: 'Sambungan Lancar Seluruh Malaysia',
+    mapDesc: 'Peta laluan interaktif kami membantu anda merancang perjalanan dengan mudah. Sama ada anda menaiki bas, kereta api, atau feri, anda akan menemui sambungan terbaik antara bandar, pulau, dan destinasi indah. Nikmati pengalaman premium dari tempahan hingga ketibaan.',
+    touristTitle: 'Sorotan Pelancong & Percutian',
+    touristSunriseAlt: 'Pelancong mengambil gambar matahari terbit di gunung dan laut',
+    touristSunriseTitle: 'Matahari Terbit di Pulau',
+    touristSunriseDesc: 'Abadikan matahari terbit yang menakjubkan dan terokai bandar pesisir yang meriah—sempurna untuk kenangan percutian yang tidak dapat dilupakan.',
+    touristHikerAlt: 'Pendaki melihat pemandangan pantai yang indah di Malaysia',
+    touristHikerTitle: 'Pengembaraan Alam',
+    touristHikerDesc: 'Terokai keajaiban semula jadi Malaysia, dari gunung hijau ke pantai yang bersih, semuanya mudah diakses melalui rangkaian pengangkutan premium kami.',
     // Support
     support: 'Sokongan',
     faq: 'Soalan Lazim',
@@ -290,7 +408,6 @@ export const translations = {
     created: 'Dicipta',
     passengerInfo: 'Maklumat Penumpang',
     tripDetails: 'Butiran Perjalanan',
-    roundTrip: 'Pergi Balik',
     leg: 'Laluan',
     seats: 'Tempat Duduk',
     addToCalendar: 'Tambah ke Kalendar',
@@ -355,6 +472,24 @@ export const translations = {
     save: 'Simpan',
     deleteAccount: 'Padam Akaun',
     logout: 'Log Keluar',
+    security: 'Keselamatan',
+    reviews: 'Ulasan',
+    preferences: 'Keutamaan',
+    referralCode: 'Kod Rujukan',
+    copied: 'Disalin!',
+    copy: 'Salin',
+    verified: 'Disahkan',
+    changePassword: 'Tukar Kata Laluan',
+    recentBookings: 'Tempahan Terkini',
+    noBookings: 'Tiada tempahan.',
+    view: 'Lihat',
+    recentReviews: 'Ulasan Terkini',
+    noReviews: 'Tiada ulasan.',
+    language: 'Bahasa',
+    languageName: 'Melayu',
+    notifications: 'Notifikasi',
+    enabled: 'Diaktifkan',
+    changeAvatar: 'Tukar Avatar',
     // Register
     createAccount: 'Cipta Akaun',
     registeredSuccessfully: 'Berjaya didaftarkan!',
@@ -363,7 +498,9 @@ export const translations = {
     confirmPassword: 'Sahkan Kata Laluan',
     registering: 'Sedang Mendaftar...',
     registered: 'Berjaya Didaftar',
-    register: 'Daftar',
+    emailAlreadyRegistered: 'Email sudah didaftarkan',
+    emailAlreadyExists: 'Email sudah ada, sila log masuk.',
+    accountAlreadyExists: 'Akaun dengan emel ini sudah wujud. Sila log masuk.',
     // Login
     loginTitle: 'Selamat Datang Kembali',
     loginSubtitle: 'Log masuk ke akaun anda',
@@ -380,6 +517,68 @@ export const translations = {
     signup: 'Daftar',
     lightMode: 'Mod Cerah',
     darkMode: 'Mod Gelap',
+    myBookings: 'Tempahan Saya',
+    oneWay: 'Sehala',
+    roundTrip: 'Pergi Balik',
+    datePlaceholder: 'hh/bb/tttt',
+    returnDatePlaceholder: 'hh/bb/tttt',
+    oneAdult: '1 Dewasa',
+    passengerSelection: 'Pilihan Penumpang',
+    childrenAge: 'Dari 0 hingga 17 tahun',
+    adults: 'Dewasa',
+    children: 'Kanak-kanak',
+    newsletterEmailPlaceholder: 'Masukkan e-mel anda',
+    // Why Book With Us Section
+    whyBookTitle: 'Mengapa Tempah Dengan TravelWithTanz',
+    whyBookSubtitle: 'Terokai, tempah, dan melancong dengan penuh keyakinan.',
+    whyBookFeatures: [
+      {
+        number: '01.',
+        iconLabel: 'Rangkaian Dipercayai',
+        title: 'Rangkaian Dipercayai',
+        desc: 'Tempah di seluruh laluan darat dan laut Asia Tenggara dengan <span class="whyBookTooltip">rakan kongsi yang disahkan<span class="whyBookTooltipText">Semua operator ditapis untuk keselamatan, kebolehpercayaan, dan kualiti perkhidmatan.</span></span>.'
+      },
+      {
+        number: '02.',
+        iconLabel: 'Selamat & Terjamin',
+        title: 'Perjalanan Selamat & Terjamin',
+        desc: 'Keselamatan anda keutamaan kami dengan penjejakan GPS, penapisan rakan kongsi, dan sokongan kecemasan.'
+      },
+      {
+        number: '03.',
+        iconLabel: 'Kaedah Pembayaran',
+        title: 'Pelbagai Kaedah Pembayaran',
+        desc: 'Bayar mengikut keselesaan anda — kad, dompet digital, atau tunai — dalam mata wang tempatan anda.'
+      },
+      {
+        number: '04.',
+        iconLabel: 'Harga Telus',
+        title: 'Harga Telus',
+        desc: 'Tiada caj tersembunyi. Tiada bayaran mengejut. Apa yang anda lihat, itulah yang anda bayar.'
+      },
+      {
+        number: '05.',
+        iconLabel: 'Promosi',
+        title: 'Promosi Kerap',
+        desc: 'Nikmati diskaun tetap dan tawaran bermusim untuk penjimatan setiap perjalanan.'
+      },
+      {
+        number: '06.',
+        iconLabel: 'Ganjaran Kesetiaan',
+        title: 'Kumpul Ganjaran Kesetiaan',
+        desc: 'Kumpul <span class="whyBookTooltip">EasiPoints<span class="whyBookTooltipText">EasiPoints ialah mata ganjaran yang anda kumpul setiap kali tempahan. Tebus untuk diskaun!</span></span> dan tebus untuk diskaun perjalanan seterusnya.'
+      }
+    ],
+    whyBookBannerTitle: 'Melancong Dengan Keyakinan',
+    whyBookBannerDesc: 'Setiap perjalanan dilindungi penjejakan masa nyata, operator yang disahkan, dan sokongan pelanggan 24/7 — kerana ketenangan anda adalah keutamaan kami.',
+    whyBookTrustBadges: [
+      { text: 'Bekerjasama dengan Operator Tempatan Dipercayai' },
+      { text: 'Dipercayai oleh 1J+ Pengguna' },
+      { text: 'Data Dilindungi melalui SSL' }
+    ],
+    whyBookTestimonialTitle: 'Apa Kata Pelancong Kami',
+    whyBookTestimonialSubtitle: 'Kisah sebenar daripada pelanggan yang menempah dengan yakin.',
+    whyBookLeaveReview: 'Tinggalkan Ulasan Anda',
   },
   zh: {
     // General
@@ -394,7 +593,26 @@ export const translations = {
     // Home
     homeTitle: '即时预订巴士、火车和渡轮',
     homeSubtitle: '马来西亚首屈一指的实时选座、即时支付和无缝出行平台。',
-    home: '首页',
+    homeTransportTitle: '我们的优质交通服务',
+    busAlt: '现代巴士车队',
+    busTitle: '巴士',
+    busDesc: '乘坐我们现代化、空调巴士，享受舒适安全的旅程。专业司机、车载设施和可靠班次，覆盖马来西亚各大城市。',
+    trainAlt: '高速列车',
+    trainTitle: '火车',
+    trainDesc: '体验我们高速列车带来的快捷、风景优美和环保出行。宽敞座椅、平稳旅程，直达主要目的地。',
+    ferryAlt: '渡轮服务',
+    ferryTitle: '渡轮',
+    ferryDesc: '乘坐我们安全舒适的渡轮，享受水上轻松之旅。非常适合海岛度假和跨海出行，欣赏美丽海景。',
+    mapAlt: '马来西亚交通地图',
+    mapTitle: '畅行全马无缝衔接',
+    mapDesc: '我们的互动路线图帮助您轻松规划行程。无论是巴士、火车还是渡轮，您都能找到城市、岛屿和美景之间的最佳连接。从预订到抵达，享受顺畅的优质体验。',
+    touristTitle: '旅游与度假亮点',
+    touristSunriseAlt: '游客在山海日出时拍照',
+    touristSunriseTitle: '海岛日出',
+    touristSunriseDesc: '捕捉令人惊叹的日出，探索充满活力的海滨城市——为难忘的假期留下美好回忆。',
+    touristHikerAlt: '徒步者欣赏马来西亚美丽的海岸风光',
+    touristHikerTitle: '自然探险',
+    touristHikerDesc: '探索马来西亚的自然奇观，从郁郁葱葱的山脉到原始海滩，均可通过我们的优质交通网络轻松抵达。',
     // Support
     support: '支持',
     faq: '常见问题',
@@ -439,7 +657,6 @@ export const translations = {
     created: '创建时间',
     passengerInfo: '乘客信息',
     tripDetails: '行程详情',
-    roundTrip: '往返',
     leg: '行程',
     seats: '座位',
     addToCalendar: '添加到日历',
@@ -504,6 +721,24 @@ export const translations = {
     save: '保存',
     deleteAccount: '删除账户',
     logout: '登出',
+    security: '安全',
+    reviews: '评价',
+    preferences: '偏好',
+    referralCode: '推荐码',
+    copied: '已复制!',
+    copy: '复制',
+    verified: '已验证',
+    changePassword: '修改密码',
+    recentBookings: '最近预订',
+    noBookings: '暂无预订',
+    view: '查看',
+    recentReviews: '最近评价',
+    noReviews: '暂无评价',
+    language: '语言',
+    languageName: '中文',
+    notifications: '通知',
+    enabled: '已启用',
+    changeAvatar: '更换头像',
     // Register
     createAccount: '创建账户',
     registeredSuccessfully: '注册成功！',
@@ -512,7 +747,9 @@ export const translations = {
     confirmPassword: '确认密码',
     registering: '注册中...',
     registered: '已注册',
-    register: '注册',
+    emailAlreadyRegistered: '邮箱已被注册',
+    emailAlreadyExists: '邮箱已存在，请登录。',
+    accountAlreadyExists: '该邮箱的账户已存在，请登录。',
     // Login
     loginTitle: '欢迎回来',
     loginSubtitle: '登录到您的账户',
@@ -529,5 +766,67 @@ export const translations = {
     signup: '注册',
     lightMode: '浅色模式',
     darkMode: '深色模式',
+    myBookings: '我的预订',
+    oneWay: '单程',
+    roundTrip: '往返',
+    datePlaceholder: '年/月/日',
+    returnDatePlaceholder: '年/月/日',
+    oneAdult: '1位成人',
+    passengerSelection: '乘客选择',
+    childrenAge: '0至17岁',
+    adults: '成人',
+    children: '儿童',
+    newsletterEmailPlaceholder: '请输入您的电子邮件',
+    // Why Book With Us Section
+    whyBookTitle: '为什么选择 TravelWithTanz',
+    whyBookSubtitle: '放心探索、预订和出行。',
+    whyBookFeatures: [
+      {
+        number: '01.',
+        iconLabel: '值得信赖的网络',
+        title: '值得信赖的网络',
+        desc: '通过<span class="whyBookTooltip">认证合作伙伴<span class="whyBookTooltipText">所有运营商均经过安全、可靠和服务质量审核。</span></span>预订东南亚最广泛的陆路和水路线路。'
+      },
+      {
+        number: '02.',
+        iconLabel: '安全保障',
+        title: '安全保障出行',
+        desc: '我们以您的安全为首要，配备GPS追踪、合作伙伴筛选和紧急支持。'
+      },
+      {
+        number: '03.',
+        iconLabel: '支付方式',
+        title: '多种支付方式',
+        desc: '支持银行卡、电子钱包或现金支付，使用本地货币。'
+      },
+      {
+        number: '04.',
+        iconLabel: '透明价格',
+        title: '透明价格',
+        desc: '无隐藏费用，无意外收费。所见即所得。'
+      },
+      {
+        number: '05.',
+        iconLabel: '促销',
+        title: '常规促销',
+        desc: '享受定期折扣和季节性优惠，每次出行都能省更多。'
+      },
+      {
+        number: '06.',
+        iconLabel: '积分奖励',
+        title: '赚取积分奖励',
+        desc: '每次预订可获得<span class="whyBookTooltip">EasiPoints<span class="whyBookTooltipText">EasiPoints 是您每次预订可获得的积分。可用于兑换下次出行折扣！</span></span>，下次出行可抵扣。'
+      }
+    ],
+    whyBookBannerTitle: '安心出行',
+    whyBookBannerDesc: '每一程都配备实时追踪、认证运营商和全天候客户支持——您的安心是我们的首要任务。',
+    whyBookTrustBadges: [
+      { text: '与本地优质运营商合作' },
+      { text: '100万+用户信赖' },
+      { text: 'SSL加密数据安全' }
+    ],
+    whyBookTestimonialTitle: '旅客评价',
+    whyBookTestimonialSubtitle: '真实旅客的真实故事，放心预订。',
+    whyBookLeaveReview: '留下您的评价',
   }
 };

@@ -22,11 +22,13 @@ h2 {
 }
 
 .error {
-  color: red;
+  color: #e63946;
   background: #ffe5e5;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
+  padding: 0.85rem;
+  border-radius: 0.6rem;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+  border: 1.5px solid #e63946;
 }
 
 .backButton {
@@ -46,35 +48,42 @@ h2 {
 .avatarSection {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 1.2rem;
+  margin-bottom: 1.7rem;
+  justify-content: flex-start;
+  position: relative;
 }
 
 .avatar {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #eee;
+  border: 3px solid #e639a6;
+  box-shadow: 0 2px 8px rgba(10,135,84,0.08);
+  background: #f3f3f3;
+  transition: box-shadow 0.2s;
 }
 
 .wallet {
   font-weight: 600;
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
-  color: #0a8754;
+  color: #e639a6;
 }
 
 textarea,
 input,
 select {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border-radius: 0.4rem;
-  border: 1px solid #ccc;
-  margin-top: 0.25rem;
+  padding: 0.65rem 1rem;
+  font-size: 1.05rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid #d1e3dd;
+  background: #f8fafb;
+  margin-top: 0.15rem;
   width: 100%;
   box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input[type="checkbox"] {
@@ -82,53 +91,75 @@ input[type="checkbox"] {
   margin-right: 0.5rem;
 }
 
-.progressBar {
-  position: relative;
-  background-color: #f0f0f0;
-  height: 1rem;
-  border-radius: 9999px;
-  overflow: hidden;
-  margin: 1.5rem 0;
+.progressBarContainer {
+  width: 100%;
+  margin: 18px 0 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
-
-.progressFill {
-  background: linear-gradient(to right, #0a8754, #00c896);
-  height: 100%;
-  transition: width 0.4s ease-in-out;
+.progressBarHeader {
+  margin-bottom: 4px;
+  font-size: 1.08em;
+  font-weight: 700;
+  color: #222;
+  letter-spacing: 0.01em;
 }
-
 .progressLabel {
-  position: absolute;
-  right: 0.75rem;
-  top: -1.6rem;
-  font-size: 0.875rem;
-  color: #333;
+  color: #fff;
+  background: linear-gradient(90deg, #0a8754 60%, #0074D9 100%);
+  padding: 3px 16px;
+  border-radius: 8px;
+  font-size: 1.08em;
+  font-weight: 700;
+  text-shadow: 0 2px 8px #000, 0 0 2px #0074D9;
+  box-shadow: 0 1px 4px #0074D955;
+  margin-bottom: 2px;
+  display: inline-block;
+}
+.progressBarTrack {
+  width: 100%;
+  height: 18px;
+  background: #eaf6f2;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 1px 4px #0074D933;
+}
+.progressBarFill {
+  height: 100%;
+  border-radius: 10px 0 0 10px;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1), background 0.3s;
+  background: linear-gradient(90deg, #0a8754 0%, #0074D9 100%);
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 2rem;
+  gap: 0.85rem;
+  margin-top: 2.2rem;
 }
 
 .actions button {
   flex: 1;
-  min-width: 120px;
-  padding: 0.6rem 1rem;
+  min-width: 130px;
+  padding: 0.7rem 1.2rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.6rem;
   font-weight: 600;
+  font-size: 1.05rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s, box-shadow 0.2s;
+  box-shadow: 0 1.5px 6px rgba(10,135,84,0.06);
 }
 
 .actions button:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.08);
+  box-shadow: 0 2.5px 10px rgba(10,135,84,0.10);
 }
 
 .save {
-  background-color: #0a8754;
+  background: linear-gradient(90deg, #e639a6 60%, #0a8754 100%);
   color: white;
 }
 
@@ -138,8 +169,157 @@ input[type="checkbox"] {
 }
 
 .logout {
-  background-color: #6c757d;
+  background: linear-gradient(90deg, #6c757d 60%, #b0b6ba 100%);
   color: white;
+}
+
+.profilePageRoot {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(120deg, #ffe0f0 60%, #e6f4f1 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.profileMain {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 0;
+  margin-top: 1.5rem; /* Reduced top margin to bring content closer to navbar */
+}
+
+.profileSidebar {
+  min-width: 220px;
+  max-width: 260px;
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 24px rgba(10,135,84,0.08), 0 1.5px 6px rgba(0,0,0,0.04);
+  margin-right: 2.5rem;
+  margin-top: 0;
+  padding: 2.2rem 1.2rem 1.2rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  height: fit-content;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.profileSidebarTab {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1.2rem;
+  border-radius: 0.9rem;
+  font-size: 1.12rem;
+  font-weight: 500;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  outline: none;
+  box-shadow: none;
+}
+.profileSidebarTab.selected, .profileSidebarTab:focus {
+  background: linear-gradient(90deg, #ffe0f0 0%, #e0f7ef 100%);
+  color: #e639a6;
+  box-shadow: 0 2px 8px rgba(230,57,166,0.08);
+}
+.profileSidebarTab:hover {
+  background: #ffe0f0;
+  color: #e639a6;
+}
+
+.profileContent {
+  flex: 1;
+  max-width: 900px;
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+.profileCard {
+  background: #fff;
+  border-radius: 1.3rem;
+  box-shadow: 0 4px 24px rgba(10,135,84,0.08), 0 1.5px 6px rgba(0,0,0,0.04);
+  padding: 2.2rem 2.2rem 1.7rem 2.2rem;
+  margin-bottom: 1.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  position: relative;
+  border: 2px solid #ffe0f0;
+}
+
+.profileSectionTitle {
+  font-size: 1.32rem;
+  font-weight: 700;
+  color: #e639a6;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  letter-spacing: 0.01em;
+}
+
+.divider {
+  border: none;
+  border-top: 1.5px solid #e0e0e0;
+  margin: 1.7rem 0 0.7rem 0;
+}
+
+.formGroup {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.editableField, .readonlyField, select, textarea {
+  padding: 0.65rem 1rem;
+  font-size: 1.05rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid #d1e3dd;
+  background: #f8fafb;
+  margin-top: 0.15rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.editableField:focus, select:focus, textarea:focus {
+  border-color: #0a8754;
+  box-shadow: 0 0 0 2px #c2f0e6;
+  outline: none;
+  background: #fff;
+}
+.readonlyField {
+  background: #f3f3f3;
+  color: #888;
+  border-style: dashed;
+}
+
+.always-open-down {
+  /* For most browsers, this will not override native dropdown direction, but we can force enough space below and restrict max-height to encourage downward opening. */
+  max-height: 40px; /* normal height */
+  overflow-y: visible;
+  /* For Chrome/Edge: force enough space below so browser prefers downward */
+  margin-bottom: 300px !important;
+  /* For mobile Safari: prevent upward open by not allowing enough space above */
+  margin-top: 0 !important;
+  /* Optional: visually indicate dropdown always opens down */
+  /* You can also use a custom dropdown library for full control. */
+}
+
+/* Optional: style the select to look consistent */
+.always-open-down:focus {
+  outline: 2px solid #0a8754;
+  border-color: #0a8754;
 }
 
 @media screen and (max-width: 480px) {
@@ -148,8 +328,8 @@ input[type="checkbox"] {
   }
 
   .avatar {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
   }
 
   h2 {
@@ -166,22 +346,442 @@ input[type="checkbox"] {
     font-size: 0.75rem;
   }
 }
-textarea {
-  resize: none;
-  height: auto;
-  min-height: 90px;
-  max-height: 200px;
-  padding: 0.75rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  line-height: 1.5;
-  background-color: #fafafa;
-  transition: border-color 0.2s;
+
+@media (max-width: 900px) {
+  .profileMain {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 1rem;
+  }
+  .profileSidebar {
+    flex-direction: row;
+    min-width: 0;
+    max-width: 100vw;
+    margin: 0 0 1.5rem 0;
+    padding: 1rem 0.5rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    gap: 0.5rem;
+    justify-content: center;
+    position: static;
+    top: 1rem;
+  }
+  .profileContent {
+    margin-top: 0;
+    padding: 0 0.5rem;
+  }
+  .avatar, .avatarOverlay {
+    width: 90px;
+    height: 90px;
+  }
 }
 
-textarea:focus {
-  border-color: #0a8754;
-  outline: none;
-  background-color: #fff;
+@media (max-width: 600px) {
+  .profilePageRoot {
+    padding: 0;
+  }
+  .profileMain {
+    margin-top: 0.5rem;
+  }
+  .profileSidebar {
+    flex-direction: row;
+    min-width: 0;
+    max-width: 100vw;
+    margin: 0 0 1rem 0;
+    padding: 0.5rem 0.2rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    gap: 0.2rem;
+    justify-content: center;
+    position: static;
+    top: 0.5rem;
+  }
+  .profileContent {
+    margin-top: 0;
+    padding: 0 0.2rem;
+  }
+  .profileCard {
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    border-radius: 0.7rem;
+  }
+  .avatar, .avatarOverlay {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* Avatar overlay */
+.avatarOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  background: rgba(230,57,166,0.32);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+.avatarSection:hover .avatarOverlay,
+.avatarSection:focus-within .avatarOverlay {
+  opacity: 1;
+}
+.avatarCameraIcon {
+  color: #fff;
+  text-shadow: 0 2px 8px #e639a6;
+}
+
+.skeleton {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #aaa;
+}
+
+.toast {
+  position: fixed;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 260px;
+  max-width: 90vw;
+  background: linear-gradient(90deg, #0a8754 0%, #0074D9 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05em;
+  padding: 1rem 2.2rem 1rem 1.2rem;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 6px 24px 0 rgba(0,0,0,0.13);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: top 0.5s cubic-bezier(.4,2,.6,1), opacity 0.4s;
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+}
+.toastVisible {
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Progress bar tweaks for percentage label above bar */
+.progressBar {
+  width: 100%;
+  height: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #eaf6f2;
+  margin: 0.2em 0 0.7em 0;
+  position: relative;
+}
+.progressFill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1), background 0.3s;
+}
+
+/* New styles for wallet and transaction features */
+.cardDisplayBox {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: linear-gradient(90deg, #f3f6fa 60%, #e0f7ef 100%);
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 12px #e0f7ef55;
+  padding: 1.1rem 1.7rem;
+  margin-bottom: 1.2rem;
+}
+.cardLogoWrap {
+  width: 48px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 0.7rem;
+  box-shadow: 0 1px 4px #e0f7ef55;
+}
+.cardLogo {
+  width: 38px;
+  height: 24px;
+}
+.cardMaskedInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+.cardType {
+  color: #0a8754;
+  font-size: 1.05rem;
+}
+.cardMasked {
+  letter-spacing: 0.15em;
+  color: #888;
+  font-size: 1.08rem;
+}
+.editCardBtn {
+  margin-left: auto;
+  background: linear-gradient(90deg, #ffe0f0 60%, #e0f7ef 100%);
+  color: #e639a6;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 1px 4px #e0f7ef55;
+  transition: background 0.2s;
+}
+.editCardBtn:hover {
+  background: #ffe0f0;
+}
+
+.topUpBtn {
+  background: linear-gradient(90deg, #0a8754 60%, #0074D9 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #e0f7ef55;
+  transition: background 0.2s;
+}
+.topUpBtn:hover {
+  background: #0074D9;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.topUpModal {
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 32px #0a875455, 0 2px 8px #e0f7ef55;
+  padding: 2.2rem 2.2rem 1.7rem 2.2rem;
+  min-width: 320px;
+  max-width: 95vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: relative;
+}
+.topUpInput {
+  font-size: 1.2rem;
+  border-radius: 0.7rem;
+  border: 1.5px solid #d1e3dd;
+  padding: 0.7rem 1.2rem;
+  background: #f8fafb;
+  margin-bottom: 0.7rem;
+}
+.paymentMethods {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 0.7rem;
+}
+.paymentMethodBtn {
+  background: #f3f6fa;
+  border: 2px solid #e0f7ef;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1.2rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #0074D9;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  cursor: pointer;
+  transition: border 0.2s, background 0.2s;
+}
+.paymentMethodBtn.selected, .paymentMethodBtn:focus {
+  border: 2px solid #0a8754;
+  background: #e0f7ef;
+}
+.confirmTopUpBtn {
+  background: linear-gradient(90deg, #0a8754 60%, #0074D9 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin-bottom: 0.7rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #e0f7ef55;
+  transition: background 0.2s;
+}
+.confirmTopUpBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.closeModalBtn {
+  background: none;
+  color: #e639a6;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.walletBalanceBox {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: linear-gradient(90deg, #e0f7ef 60%, #f3f6fa 100%);
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 12px #e0f7ef55;
+  padding: 1.1rem 1.7rem;
+  margin-bottom: 1.2rem;
+}
+.walletLabel {
+  color: #0a8754;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.walletAmount {
+  color: #0074D9;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-left: 1.2rem;
+}
+
+.easiPointsBox {
+  background: linear-gradient(90deg, #ffe0f0 60%, #e0f7ef 100%);
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 12px #e0f7ef55;
+  padding: 1.1rem 1.7rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.easiPointsHeader {
+  color: #e639a6;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.easiPointsProgressWrap {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.easiPointsProgressBar {
+  flex: 1;
+  height: 12px;
+  background: #eaf6f2;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.easiPointsProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #e639a6 60%, #0a8754 100%);
+  border-radius: 8px;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1), background 0.3s;
+}
+.easiPointsText {
+  color: #0074D9;
+  font-weight: 700;
+  font-size: 1.08rem;
+}
+.easiPointsUnlock {
+  color: #888;
+  font-size: 0.98rem;
+  margin-left: 0.7rem;
+}
+.easiPointsActions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+.easiPointsLink {
+  color: #0a8754;
+  text-decoration: underline;
+  font-weight: 600;
+  font-size: 1.01rem;
+}
+.redeemBtn {
+  background: linear-gradient(90deg, #e639a6 60%, #0a8754 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  font-size: 1.08rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #e0f7ef55;
+  transition: background 0.2s;
+}
+.redeemBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.transactionHistoryBox {
+  background: linear-gradient(90deg, #f3f6fa 60%, #e0f7ef 100%);
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 12px #e0f7ef55;
+  padding: 1.1rem 1.7rem;
+  margin-bottom: 1.2rem;
+}
+.transactionHistoryHeader {
+  color: #0074D9;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+.transactionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.transactionItem {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.05rem;
+  color: #333;
+  background: #fff;
+  border-radius: 0.6rem;
+  box-shadow: 0 1px 4px #e0f7ef33;
+  padding: 0.6rem 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .cardDisplayBox, .walletBalanceBox, .easiPointsBox, .transactionHistoryBox {
+    padding: 0.7rem 0.5rem;
+    border-radius: 0.7rem;
+  }
+  .topUpModal {
+    min-width: 90vw;
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    border-radius: 0.7rem;
+  }
 }

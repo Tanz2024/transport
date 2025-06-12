@@ -11,11 +11,14 @@ import styles from './CardPaymentForm.module.css';
 import { FaCreditCard } from 'react-icons/fa';
 
 interface Props {
-  bookingId: number;
-  totalAmount: number;
+  // If bookingId and totalAmount are not provided, treat as card save only
+  bookingId?: number;
+  totalAmount?: number;
+  onSuccess?: () => void;
+  onClose?: () => void;
 }
 
-const CardPaymentForm: React.FC<Props> = ({ bookingId, totalAmount }) => {
+const CardPaymentForm: React.FC<Props> = ({ bookingId, totalAmount, onSuccess, onClose }) => {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
@@ -44,146 +47,172 @@ const CardPaymentForm: React.FC<Props> = ({ bookingId, totalAmount }) => {
       setError("Stripe hasn't loaded yet. Please try again in a moment.");
       return;
     }
-
     const cardElement = elements.getElement(CardNumberElement);
     if (!cardElement) {
       setError("Card element not found. Please refresh the page.");
       return;
     }
-
     setProcessing(true);
     setError('');
-
     try {
-      console.log(`Creating payment intent for booking ${bookingId}, amount: ${totalAmount}`);
+      // If bookingId and totalAmount are provided, do payment intent (booking or top-up)
+      if (typeof bookingId === 'number' && typeof totalAmount === 'number' && totalAmount > 0) {
+        console.log(`Creating payment intent for booking ${bookingId}, amount: ${totalAmount}`);
         const res = await fetch(`${API_BASE}/api/payments/intent`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          booking_id: bookingId,
-          amount: totalAmount,
-          currency: 'myr',
-          method: 'card',
-          is_round_trip: false // Will be determined by backend
-        }),
-      });const data = await res.json();
-      console.log('Payment intent response:', data);
-      
-      if (!res.ok || !data.client_secret) {
-        console.error('Payment intent creation failed:', {
-          status: res.status,
-          statusText: res.statusText,
-          response: data,
-          bookingId,
-          amount: totalAmount
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            booking_id: bookingId,
+            amount: totalAmount,
+            currency: 'myr',
+            method: 'card',
+            is_round_trip: false // Will be determined by backend
+          }),
         });
+        const data = await res.json();
+        console.log('Payment intent response:', data);
         
-        // Handle specific errors
-        let errorMessage = data.error || 'Failed to create payment intent.';
-        if (res.status === 404) {
-          errorMessage = 'Booking not found. Please refresh the page and try again.';
-        } else if (res.status === 400 && errorMessage.includes('already completed')) {
-          errorMessage = 'Payment has already been completed for this booking.';
-        } else if (res.status === 400 && errorMessage.includes('Invalid amount')) {
-          errorMessage = 'Invalid payment amount. Please refresh and try again.';
-        }
-        
-        throw new Error(errorMessage);
-      }
-      
-      // Validate client secret format
-      if (!data.client_secret.startsWith('pi_')) {
-        console.error('Invalid client secret format:', data.client_secret);
-        throw new Error('Invalid payment session. Please try again.');
-      }// Already checked card element above - no need to do it again
-      console.log('Confirming card payment with client secret...');
-      
-      const result = await stripe.confirmCardPayment(data.client_secret, {
-        payment_method: {
-          card: cardElement,
-          billing_details: { 
-            name: cardholderName,
-          },
-        },
-      });
-      
-      console.log('Payment confirmation result:', result);
-      
-      if (result.error) {
-        console.error('Payment error:', result.error);
-        setError(`Payment failed: ${result.error.message || 'Unknown error'}`);
-      } else if (result.paymentIntent?.status === 'succeeded') {
-        console.log('Payment succeeded:', result.paymentIntent);
-        setSuccess(true);
-        
-        // Update the booking payment status to paid via backend
-        try {
-          console.log(`Updating booking ${bookingId} status to paid`);
-          const updateRes = await fetch(`${API_BASE}/api/bookings/${bookingId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify({
-              payment_status: 'paid',
-            }),
+        if (!res.ok || !data.client_secret) {
+          console.error('Payment intent creation failed:', {
+            status: res.status,
+            statusText: res.statusText,
+            response: data,
+            bookingId,
+            amount: totalAmount
           });
           
-          const updateData = await updateRes.json();
-          if (!updateRes.ok) {
-            console.warn('Warning: Booking status update failed:', updateData);
-            // Continue with navigation anyway as the payment succeeded
-          } else {
-            console.log('Booking status updated successfully');
+          // Handle specific errors
+          let errorMessage = data.error || 'Failed to create payment intent.';
+          if (res.status === 404) {
+            errorMessage = 'Booking not found. Please refresh the page and try again.';
+          } else if (res.status === 400 && errorMessage.includes('already completed')) {
+            errorMessage = 'Payment has already been completed for this booking.';
+          } else if (res.status === 400 && errorMessage.includes('Invalid amount')) {
+            errorMessage = 'Invalid payment amount. Please refresh and try again.';
           }
-        } catch (updateErr) {
-          console.error('Failed to update booking status but payment succeeded:', updateErr);
-          // Continue navigation even if this fails
+          
+          throw new Error(errorMessage);
         }
         
-        // Brief delay before navigation to ensure state updates are reflected
-        setTimeout(() => {
-          console.log(`Redirecting to success page for booking ${bookingId}`);
-          navigate(`/success?booking_id=${bookingId}`);
-        }, 500);      } else {
-        console.warn('Payment status:', result.paymentIntent?.status);
+        // Validate client secret format
+        if (!data.client_secret.startsWith('pi_')) {
+          console.error('Invalid client secret format:', data.client_secret);
+          throw new Error('Invalid payment session. Please try again.');
+        }// Already checked card element above - no need to do it again
+        console.log('Confirming card payment with client secret...');
         
-        // Handle different payment statuses with specific messages
-        let statusMessage = 'Payment not completed.';
-        switch (result.paymentIntent?.status) {
-          case 'requires_payment_method':
-            statusMessage = 'Payment method required. Please check your card details and try again.';
-            break;
-          case 'requires_confirmation':
-            statusMessage = 'Payment requires confirmation. Please try again.';
-            break;
-          case 'requires_action':
-            statusMessage = 'Additional authentication required. Please complete the verification and try again.';
-            break;
-          case 'processing':
-            statusMessage = 'Payment is being processed. Please wait a moment and check your booking status.';
-            break;
-          case 'canceled':
-            statusMessage = 'Payment was canceled. Please try again.';
-            break;
-          default:
-            statusMessage = `Payment status: ${result.paymentIntent?.status || 'unknown'}. Please contact support if this persists.`;
+        const result = await stripe.confirmCardPayment(data.client_secret, {
+          payment_method: {
+            card: cardElement,
+            billing_details: { 
+              name: cardholderName,
+            },
+          },
+        });
+        
+        console.log('Payment confirmation result:', result);
+        
+        if (result.error) {
+          console.error('Payment error:', result.error);
+          setError(`Payment failed: ${result.error.message || 'Unknown error'}`);
+        } else if (result.paymentIntent?.status === 'succeeded') {
+          console.log('Payment succeeded:', result.paymentIntent);
+          setSuccess(true);
+          
+          // Update the booking payment status to paid via backend
+          try {
+            console.log(`Updating booking ${bookingId} status to paid`);
+            const updateRes = await fetch(`${API_BASE}/api/bookings/${bookingId}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
+              body: JSON.stringify({
+                payment_status: 'paid',
+              }),
+            });
+            
+            const updateData = await updateRes.json();
+            if (!updateRes.ok) {
+              console.warn('Warning: Booking status update failed:', updateData);
+              // Continue with navigation anyway as the payment succeeded
+            } else {
+              console.log('Booking status updated successfully');
+            }
+          } catch (updateErr) {
+            console.error('Failed to update booking status but payment succeeded:', updateErr);
+            // Continue navigation even if this fails
+          }
+          
+          // Brief delay before navigation to ensure state updates are reflected
+          setTimeout(() => {
+            console.log(`Redirecting to success page for booking ${bookingId}`);
+            navigate(`/success?booking_id=${bookingId}`);
+          }, 500);      } else {
+          console.warn('Payment status:', result.paymentIntent?.status);
+          
+          // Handle different payment statuses with specific messages
+          let statusMessage = 'Payment not completed.';
+          switch (result.paymentIntent?.status) {
+            case 'requires_payment_method':
+              statusMessage = 'Payment method required. Please check your card details and try again.';
+              break;
+            case 'requires_confirmation':
+              statusMessage = 'Payment requires confirmation. Please try again.';
+              break;
+            case 'requires_action':
+              statusMessage = 'Additional authentication required. Please complete the verification and try again.';
+              break;
+            case 'processing':
+              statusMessage = 'Payment is being processed. Please wait a moment and check your booking status.';
+              break;
+            case 'canceled':
+              statusMessage = 'Payment was canceled. Please try again.';
+              break;
+            default:
+              statusMessage = `Payment status: ${result.paymentIntent?.status || 'unknown'}. Please contact support if this persists.`;
+          }
+          
+          setError(statusMessage);
         }
-        
-        setError(statusMessage);
-      }} catch (err: any) {
-      console.error('Payment error:', err);
-      setError(`Payment error: ${err.message || 'Unexpected error occurred'}`);
-      
-      // Attempt to get more diagnostic info
-      if (err.response) {
+      } else {
+        // Card save only: create a PaymentMethod and attach card to customer
+        const pmResult = await stripe.createPaymentMethod({
+          type: 'card',
+          card: cardElement,
+          billing_details: { name: cardholderName }
+        });
+        if (pmResult.error || !pmResult.paymentMethod) {
+          setError(pmResult.error?.message || 'Failed to create payment method.');
+          setProcessing(false);
+          return;
+        }
+        // Debug: log payment method id
+        console.log('Created payment method:', pmResult.paymentMethod.id);
         try {
-          const errorData = await err.response.json();
-          console.error('Error details:', errorData);
-        } catch (parseErr) {
-          // Ignore JSON parse errors
+          const token = localStorage.getItem('token');
+          const result = await fetch(`${API_BASE}/api/wallet/cards`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            credentials: 'include',
+            body: JSON.stringify({ payment_method_id: pmResult.paymentMethod.id }),
+          });
+          const data = await result.json();
+          console.log('Card save response:', data);
+          if (!result.ok || !data.success) {
+            setError(data.error || 'Failed to save card.');
+          } else {
+            setSuccess(true);
+            if (onSuccess) onSuccess();
+          }
+        } catch (err: any) {
+          setError(err.message || 'Unexpected error occurred');
+          console.error('Save card failed:', err);
         }
       }
+    } catch (err: any) {
+      setError(err.message || 'Unexpected error occurred');
+      console.error('Card payment error:', err);
     } finally {
       setProcessing(false);
     }
@@ -315,7 +344,7 @@ const CardPaymentForm: React.FC<Props> = ({ bookingId, totalAmount }) => {
           type="text"
           className={styles.textInput}
           value={cardholderName}
-          onChange={(e) => setCardholderName(e.target.value)}
+          onChange={e => setCardholderName((e.target as any).value)}
           placeholder="Full name as on card"
           required
         />
@@ -329,7 +358,11 @@ const CardPaymentForm: React.FC<Props> = ({ bookingId, totalAmount }) => {
         className={styles.payButton}
         disabled={!stripe || processing}
       >
-        {processing ? 'Processing...' : `Pay RM ${totalAmount.toFixed(2)}`}
+        {processing
+          ? 'Processing...'
+          : (typeof totalAmount === 'number' && !Number.isNaN(totalAmount) && totalAmount > 0)
+            ? `Pay RM ${Number(totalAmount).toFixed(2)}`
+            : 'Save Card'}
       </button>
     </form>
   );

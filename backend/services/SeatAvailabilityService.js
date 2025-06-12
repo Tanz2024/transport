@@ -192,7 +192,7 @@ export default class SeatAvailabilityService {
 
       return { success: true };
     } catch (err) {
-      console.error("❌ markSeatsAsBooked error:", err.message);
+      console.error(" markSeatsAsBooked error:", err.message);
       throw err;
     } finally {
       client.release();

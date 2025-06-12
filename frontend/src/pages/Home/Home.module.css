@@ -32,6 +32,128 @@
   padding: 1.5rem 1rem 1rem;
 }
 
+/* Transport Section Styles */
+.transportSection {
+  max-width: 1100px;
+  margin: 2.5rem auto 2rem;
+  padding: 0 1rem;
+}
+.transportTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #1a2233;
+}
+.transportCards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.transportCard {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+  padding: 1.5rem 1.2rem 1.2rem;
+  max-width: 320px;
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.18s, box-shadow 0.18s;
+  margin-bottom: 1.5rem;
+}
+.transportCard:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.13);
+}
+.transportImg {
+  width: 100%;
+  max-width: 260px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.transportCard h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0.3rem;
+  color: #e50914;
+}
+.transportCard p {
+  color: #444;
+  font-size: 1.01rem;
+  text-align: center;
+  margin: 0;
+}
+.vacationCard {
+  background: linear-gradient(120deg, #f9fafb 60%, #e0e7ef 100%);
+  border: 2px solid #e0e7ef;
+  box-shadow: 0 6px 32px rgba(0, 128, 255, 0.08);
+}
+.touristCard1 {
+  background: linear-gradient(120deg, #fffbe6 60%, #ffe7ba 100%);
+  border: 2.5px solid #ffd700;
+  box-shadow: 0 8px 36px rgba(255, 215, 0, 0.13);
+  position: relative;
+}
+.touristCard2 {
+  background: linear-gradient(120deg, #e0e7ef 60%, #d1e7ff 100%);
+  border: 2.5px solid #4f8cff;
+  box-shadow: 0 8px 36px rgba(79, 140, 255, 0.13);
+  position: relative;
+}
+.premiumBadge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: linear-gradient(90deg, #ffd700 60%, #ffb300 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 0.32em 0.95em;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.13);
+  letter-spacing: 0.04em;
+  z-index: 2;
+}
+.touristCard2 .premiumBadge {
+  background: linear-gradient(90deg, #4f8cff 60%, #7f53ff 100%);
+}
+.touristCard1 h3, .touristCard2 h3 {
+  color: #b8860b;
+  letter-spacing: 0.01em;
+}
+.touristCard2 h3 {
+  color: #4f8cff;
+}
+.touristCard1 p, .touristCard2 p {
+  color: #333;
+  font-weight: 500;
+}
+@media (max-width: 1100px) {
+  .transportCards {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .transportCard {
+    max-width: 48vw;
+  }
+}
+@media (max-width: 900px) {
+  .transportCards {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .transportCard {
+    max-width: 95vw;
+  }
+}
+
 /* Mobile Styles */
 @media (max-width: 768px) {
   .heroSection {
@@ -51,6 +173,15 @@
     margin: 0 0.5rem;
     padding: 1.2rem 0.8rem 0.8rem;
     border-radius: 8px;
+  }
+  
+  .transportCards {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .transportCard {
+    max-width: 95vw;
   }
 }
 
@@ -73,3 +204,1006 @@
     padding: 1rem 0.6rem 0.6rem;
   }
 }
+
+/* Map Section Styles */
+.mapSection {
+  max-width: 1100px;
+  margin: 2.5rem auto 2rem;
+  padding: 0 1rem 2.5rem 1rem;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+.mapTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #1a2233;
+}
+.mapFilters {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+.cityFilters, .tourFilters {
+  display: flex;
+  gap: 0.7rem;
+}
+.filterBtn {
+  background: #f3f6fa;
+  color: #1a2233;
+  border: 1.5px solid #e0e7ef;
+  border-radius: 16px;
+  padding: 0.45em 1.2em;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.activeFilter {
+  background: linear-gradient(90deg, #ffe082 60%, #90caf9 100%);
+  color: #222;
+  border: 2px solid #ffd700;
+}
+.mapWrap {
+  position: relative;
+  margin: 0 auto;
+  max-width: 340px;
+  min-height: 420px;
+  background: #e0e7ef;
+  border-radius: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  overflow: visible;
+}
+.malaysiaMap {
+  width: 100%;
+  height: 400px;
+  display: block;
+  border-radius: 24px;
+}
+.pinPopup {
+  position: absolute;
+  min-width: 180px;
+  background: #fffbe6;
+  border: 2px solid #ffd700;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.13);
+  padding: 1.1em 1.2em 0.8em 1.2em;
+  z-index: 10;
+  left: 340px;
+  top: 60px;
+  animation: fadeIn 0.2s;
+}
+.pinPopup h4 {
+  margin: 0 0 0.7em 0;
+  font-size: 1.1rem;
+  color: #b8860b;
+}
+.ctaBtn {
+  background: linear-gradient(90deg, #ffe082 60%, #90caf9 100%);
+  color: #1a2233;
+  border: none;
+  border-radius: 16px;
+  padding: 0.5em 1.3em;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-right: 0.7em;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.09);
+  transition: background 0.15s, color 0.15s;
+}
+.ctaBtn:hover {
+  background: linear-gradient(90deg, #ffd700 60%, #4f8cff 100%);
+  color: #fff;
+}
+.ctaBtnOutline {
+  background: transparent;
+  color: #1a2233;
+  border: 2px solid #90caf9;
+  border-radius: 16px;
+  padding: 0.5em 1.3em;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.ctaBtnOutline:hover {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: 2px solid #1976d2;
+}
+.closePopup {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #b8860b;
+  cursor: pointer;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Testimonial Section --- */
+.whyBookTestimonialSection {
+  width: 100%;
+  max-width: 1100px;
+  margin: 2.5rem auto 0 auto;
+  padding: 2.5rem 1.5rem 2.5rem 1.5rem;
+  background: linear-gradient(120deg, #fffbe6 0%, #e3f2fd 100%);
+  border-radius: 22px;
+  box-shadow: 0 8px 36px rgba(37,99,235,0.10), 0 2px 8px #ffe08233;
+  position: relative;
+  overflow: visible;
+}
+.whyBookTestimonialTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a2233;
+  text-align: center;
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  letter-spacing: 0.01em;
+}
+.whyBookTestimonialEmoji {
+  font-size: 2.1rem;
+  margin-right: 0.3em;
+}
+.whyBookTestimonialSubtitle {
+  font-size: 1.13rem;
+  color: #444;
+  text-align: center;
+  margin-bottom: 2.2rem;
+  font-weight: 500;
+}
+.whyBookTestimonialCarousel {
+  display: flex;
+  gap: 2.2rem;
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  position: relative;
+}
+.whyBookTestimonialQuoteBg {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  width: 120px;
+  height: 120px;
+  z-index: 0;
+  pointer-events: none;
+}
+.whyBookTestimonialCard {
+  background: linear-gradient(120deg, #fffbe6 60%, #e3f2fd 100%);
+  border-radius: 18px;
+  box-shadow: 0 8px 36px rgba(37,99,235,0.13), 0 2px 8px #ffe08233;
+  padding: 2.1rem 1.5rem 1.5rem 1.5rem;
+  min-width: 320px;
+  max-width: 370px;
+  flex: 0 0 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  scroll-snap-align: center;
+  transition: box-shadow 0.18s, transform 0.18s;
+  font-size: 1.13rem;
+  font-style: italic;
+  font-weight: 500;
+  color: #333;
+  z-index: 1;
+  animation: fadeInUp 0.7s cubic-bezier(.23,1.01,.32,1) both;
+}
+.whyBookTestimonialCard:hover {
+  box-shadow: 0 16px 40px rgba(37,99,235,0.18), 0 2px 8px #ffe082;
+  transform: translateY(-6px) scale(1.03);
+}
+.whyBookTestimonialQuoteMark {
+  font-size: 2.8rem;
+  color: #ffd700;
+  font-family: serif;
+  opacity: 0.18;
+  position: absolute;
+  left: 1.1rem;
+  top: 0.7rem;
+  z-index: 1;
+  pointer-events: none;
+}
+.whyBookTestimonialText {
+  font-size: 1.18rem;
+  color: #222;
+  font-style: italic;
+  font-weight: 500;
+  margin: 1.2rem 0 0.7rem 0;
+  z-index: 2;
+  position: relative;
+  min-height: 60px;
+}
+.whyBookTestimonialTextMain {
+  display: inline;
+}
+.whyBookTestimonialAuthor {
+  font-size: 0.98rem;
+  color: #b8860b;
+  font-style: italic;
+  font-weight: 400;
+  align-self: flex-end;
+  margin-top: 1.2rem;
+  margin-right: 0.2rem;
+  opacity: 0.85;
+  z-index: 2;
+}
+.whyBookTestimonialReadMore {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 0.5em;
+  text-decoration: underline;
+  transition: color 0.15s;
+}
+.whyBookTestimonialReadMore:hover {
+  color: #e50914;
+}
+.whyBookTestimonialActions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.7rem;
+}
+.whyBookTestimonialLeaveBtn {
+  background: linear-gradient(90deg, #ffb6c1 60%, #ff69b4 100%);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  padding: 0.7em 2.1em;
+  font-size: 1.13rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px #ffb6c155;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.whyBookTestimonialLeaveBtn:hover {
+  background: linear-gradient(90deg, #ff69b4 60%, #ffb6c1 100%);
+  color: #fff;
+}
+
+/* Animations for card entrance */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive styles for testimonial carousel */
+@media (max-width: 900px) {
+  .whyBookTestimonialCarousel {
+    gap: 1.1rem;
+  }
+  .whyBookTestimonialCard {
+    min-width: 85vw;
+    max-width: 92vw;
+    flex: 0 0 85vw;
+    padding: 1.2rem 0.8rem 1rem 0.8rem;
+    border-radius: 12px;
+    align-items: center;
+    text-align: center;
+  }
+  .whyBookTestimonialText {
+    font-size: 1.08rem;
+  }
+}
+@media (max-width: 600px) {
+  .whyBookTestimonialSection {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    border-radius: 12px;
+  }
+  .whyBookTestimonialCarousel {
+    gap: 0.7rem;
+  }
+  .whyBookTestimonialCard {
+    min-width: 92vw;
+    max-width: 98vw;
+    flex: 0 0 92vw;
+    padding: 1.1rem 0.6rem 0.8rem 0.6rem;
+    border-radius: 10px;
+  }
+  .whyBookTestimonialText {
+    font-size: 1.01rem;
+  }
+  .whyBookTestimonialTitle {
+    font-size: 1.3rem;
+  }
+  .whyBookTestimonialSubtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Section 2: Tourist Packages */
+.touristSection {
+  max-width: 1100px;
+  margin: 2.5rem auto 2rem;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.touristTitle {
+  text-align: center;
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin-bottom: 2.2rem;
+  color: #1a2233;
+}
+.touristCardsWrap {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.touristCard {
+  flex: 1 1 320px;
+  max-width: 370px;
+  min-width: 260px;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(0, 128, 255, 0.08);
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.gradientCard1 {
+  background: linear-gradient(120deg, #fffbe6 0%, #ffe7ba 100%);
+  border: 2.5px solid #ffd700;
+}
+.gradientCard2 {
+  background: linear-gradient(120deg, #e3f2fd 0%, #d1e7ff 100%);
+  border: 2.5px solid #4f8cff;
+}
+.touristCard h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #b8860b;
+  margin-bottom: 0.7rem;
+}
+.gradientCard2 h3 {
+  color: #4f8cff;
+}
+.touristCard p {
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+}
+.touristCardActions {
+  display: flex;
+  gap: 1rem;
+}
+.touristMediaWrap {
+  flex: 1 1 320px;
+  max-width: 370px;
+  min-width: 260px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 32px rgba(0, 128, 255, 0.08);
+  margin-bottom: 1.5rem;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* New Map Section Premium Styles */
+.mapSectionPremium {
+  max-width: 1100px;
+  margin: 2.5rem auto 2rem;
+  padding: 2.5rem 1rem 2.5rem 1rem;
+  border-radius: 18px;
+  background: linear-gradient(120deg, #f9fafb 0%, #e0e7ef 100%);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+.mapContentWrap {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.mapImg {
+  width: 420px;
+  max-width: 40vw;
+  min-width: 220px;
+  height: 280px;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  will-change: transform, opacity;
+  transition: opacity 0.3s;
+  opacity: 0;
+  animation: fadeInImg 0.5s forwards;
+  display: block;
+  background: #f3f6fa;
+}
+.mapDescWrap {
+  flex: 1 1 320px;
+  min-width: 260px;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mapDescTitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #b8860b;
+  margin-bottom: 0.5rem;
+}
+.mapDescText {
+  color: #333;
+  font-weight: 500;
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+@media (max-width: 900px) {
+  .mapContentWrap {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .mapImg {
+    width: 95vw;
+    max-width: 95vw;
+    min-width: 0;
+    height: 180px;
+    aspect-ratio: 16/9;
+  }
+  .mapDescWrap {
+    max-width: 95vw;
+  }
+}
+
+/* Tourist Inspiration Section Styles */
+.touristInspireSection {
+  max-width: 1100px;
+  margin: 2.5rem auto 2rem;
+  padding: 2.5rem 1rem 2.5rem 1rem;
+  border-radius: 18px;
+  background: linear-gradient(120deg, #fffbe6 0%, #e3f2fd 100%);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+.touristInspireContent, .touristInspireContentReverse {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(0, 128, 255, 0.08);
+  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  max-width: 100%;
+  transition: transform 0.18s, box-shadow 0.18s;
+  position: relative;
+}
+.touristInspireContentReverse {
+  flex-direction: row-reverse;
+  background: linear-gradient(120deg, #e3f2fd 0%, #fffbe6 100%);
+}
+.touristInspireFigure, .touristInspireFigureReverse {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2.5rem;
+  margin: 0;
+  width: 100%;
+}
+.touristInspireFigureReverse {
+  flex-direction: row-reverse;
+}
+.touristInspireImg {
+  width: 380px;
+  max-width: 40vw;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  flex-shrink: 0;
+}
+.touristInspireDesc {
+  flex: 1 1 320px;
+  min-width: 200px;
+  text-align: left;
+  padding: 0 0.5rem;
+}
+.touristInspireTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #b8860b;
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.01em;
+}
+.touristInspireText {
+  color: #333;
+  font-weight: 500;
+  font-size: 1.13rem;
+  line-height: 1.6;
+}
+@media (max-width: 900px) {
+  .touristInspireContent, .touristInspireContentReverse, .touristInspireFigure, .touristInspireFigureReverse {
+    flex-direction: column !important;
+    gap: 1.2rem;
+    max-width: 95vw;
+    align-items: center;
+    text-align: center;
+  }
+  .touristInspireImg {
+    width: 95vw;
+    max-width: 95vw;
+    height: 180px;
+  }
+  .touristInspireDesc {
+    max-width: 95vw;
+    padding: 0;
+    text-align: center;
+  }
+}
+
+/* Tourist Grid Section Styles */
+.touristGridSection {
+  max-width: 1100px;
+  margin: 2.5rem auto 2rem;
+  padding: 2.5rem 1rem 2.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  background: none;
+  box-shadow: none;
+}
+.touristGridRow, .touristGridRowReverse {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  width: 100%;
+  margin: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+.touristGridRowReverse {
+  flex-direction: row-reverse;
+}
+.touristGridLargeImg {
+  width: 420px;
+  max-width: 40vw;
+  min-width: 220px;
+  height: 280px;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  will-change: transform, opacity;
+  transition: opacity 0.3s;
+  opacity: 0;
+  animation: fadeInImg 0.5s forwards;
+}
+.touristGridRow img,
+.touristGridRowReverse img {
+  display: block;
+  background: #f3f6fa;
+}
+@keyframes fadeInImg {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .touristGridRow, .touristGridRowReverse {
+    flex-direction: column !important;
+    gap: 1.2rem;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  .touristGridLargeImg {
+    width: 95vw;
+    max-width: 95vw;
+    min-width: 0;
+    height: 180px;
+    aspect-ratio: 16/9;
+  }
+  .touristGridTextBlock {
+    max-width: 95vw;
+    padding: 0;
+    text-align: center;
+  }
+}
+
+/* Tourist & Vacation Section - Plain, No Boxed Background */
+.touristSection {
+  max-width: 1100px;
+  margin: 2.5rem auto 2rem;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.touristTitle {
+  text-align: center;
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  color: #1a2233;
+}
+.touristRow {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  background: none;
+  box-shadow: none;
+  margin: 0 0 2.5rem 0;
+  width: 100%;
+  border-radius: 0;
+  padding: 0;
+}
+.touristImg {
+  border-radius: 14px;
+  box-shadow: none;
+  width: 340px;
+  max-width: 40vw;
+  height: 200px;
+  object-fit: cover;
+  margin: 0;
+  background: #f3f6fa;
+  display: block;
+}
+.touristRowTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #e50914;
+  margin-bottom: 0.5rem;
+}
+.touristRowText {
+  color: #444;
+  font-size: 1.01rem;
+  text-align: left;
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .touristRow {
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: center;
+    text-align: center;
+  }
+  .touristImg {
+    width: 95vw;
+    max-width: 95vw;
+    height: 160px;
+  }
+  .touristRowTitle, .touristRowText {
+    text-align: center;
+  }
+}
+
+/* --- Why Book With Us Section --- */
+.whyBookSection {
+  max-width: 1100px;
+  margin: 3.5rem auto 2.5rem;
+  padding: 2.5rem 1.5rem 2.5rem 1.5rem;
+  background: linear-gradient(120deg, #fffbe6 0%, #e3f2fd 100%);
+  border-radius: 22px;
+  box-shadow: 0 6px 32px rgba(0, 128, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+.whyBookTitle {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #1a2233;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.whyBookSubtitle {
+  font-size: 1.18rem;
+  color: #444;
+  text-align: center;
+  margin-bottom: 1.8rem;
+  font-weight: 500;
+}
+.whyBookGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem 2.5rem;
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto 0.5rem auto;
+}
+.whyBookCard {
+  background: rgba(255,255,255,0.82);
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(37,99,235,0.10), 0 2px 8px #ffe08233;
+  padding: 2.1rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 260px;
+  position: relative;
+  transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+  cursor: pointer;
+  border: 1.5px solid #f3f6fa;
+  background-image: linear-gradient(120deg, rgba(227,242,253,0.18) 0%, rgba(255,251,230,0.18) 100%);
+  backdrop-filter: blur(6px);
+}
+.whyBookCard:hover, .whyBookCard:focus {
+  transform: translateY(-8px) scale(1.035);
+  box-shadow: 0 16px 40px rgba(37,99,235,0.18), 0 2px 8px #ffe082;
+  border-color: #ffe082;
+  background: rgba(255,255,255,0.96);
+  z-index: 2;
+}
+.whyBookCardNumber {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #b8860b;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+.whyBookIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.3rem;
+  margin-bottom: 1.1rem;
+  color: #ffd700;
+  filter: drop-shadow(0 2px 8px #ffe08233);
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #ffe08222;
+  transition: box-shadow 0.18s, background 0.18s;
+}
+.whyBookCard:hover .whyBookIcon, .whyBookCard:focus .whyBookIcon {
+  background: #fffbe6;
+  box-shadow: 0 4px 16px #ffe08255;
+}
+.whyBookCardTitle {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
+.whyBookCardDesc {
+  color: #444;
+  font-size: 1.01rem;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+.whyBookTooltip {
+  position: relative;
+  border-bottom: 1px dotted #b8860b;
+  cursor: help;
+  color: #b8860b;
+  font-weight: 600;
+}
+.whyBookTooltipText {
+  visibility: hidden;
+  width: 220px;
+  background: #fffbe6;
+  color: #222;
+  text-align: left;
+  border-radius: 8px;
+  padding: 0.7em 1em;
+  position: absolute;
+  z-index: 10;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 16px #ffe08255;
+  font-size: 0.98rem;
+  opacity: 0;
+  transition: opacity 0.18s;
+  pointer-events: none;
+}
+.whyBookTooltip:focus .whyBookTooltipText,
+.whyBookTooltip:hover .whyBookTooltipText {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+.whyBookTrustBadges {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0 0.5rem 0;
+  flex-wrap: wrap;
+}
+.whyBookTrustBadge {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #e3f2fd55;
+  padding: 0.5em 1.2em;
+  font-size: 1.01rem;
+  color: #2563eb;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.whyBookTrustBadgeDesc {
+  display: block;
+  font-size: 0.98em;
+  color: #666;
+  font-weight: 400;
+  margin-top: 0.2em;
+  opacity: 0.85;
+}
+.whyBookTestimonialSlider {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: stretch;
+  margin: 1.5rem 0 0 0;
+  flex-wrap: wrap;
+}
+.whyBookTestimonial {
+  background: #fffbe6;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #ffe08255;
+  padding: 1.2em 1.5em;
+  font-size: 1.05rem;
+  color: #444;
+  font-weight: 500;
+  max-width: 340px;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+.whyBookTestimonialQuote {
+  font-size: 2.2rem;
+  color: #ffd700;
+  font-family: serif;
+  margin-bottom: 0.2em;
+  line-height: 1;
+}
+.whyBookTestimonialAuthor {
+  font-size: 0.98rem;
+  color: #b8860b;
+  font-weight: 600;
+  margin-top: 0.7em;
+}
+@media (max-width: 900px) {
+  .whyBookGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 1.5rem;
+  }
+  .whyBookBanner {
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1.2rem 1rem;
+    text-align: center;
+  }
+  .whyBookTrustBadges {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .whyBookTestimonialSlider {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+}
+@media (max-width: 600px) {
+  .whyBookSection {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    border-radius: 12px;
+  }
+  .whyBookGrid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem 0;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .whyBookCard {
+    min-width: 85vw;
+    max-width: 92vw;
+    flex: 0 0 85vw;
+    scroll-snap-align: center;
+    padding: 1.2rem 0.8rem 1rem 0.8rem;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+  }
+  .whyBookCardNumber {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .whyBookIcon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 1rem;
+  }
+  .whyBookTitle {
+    font-size: 1.3rem;
+  }
+  .whyBookSubtitle {
+    font-size: 1rem;
+  }
+  .whyBookBanner {
+    padding: 1rem 0.5rem;
+    border-radius: 10px;
+  }
+  .whyBookBannerIcon {
+    font-size: 2rem;
+  }
+  .whyBookTrustBadges {
+    gap: 0.5rem;
+  }
+  .whyBookTestimonialSlider {
+    gap: 0.5rem;
+  }
+}
+
+/* Login Prompt Styles */
+.whyBookTestimonialLoginPrompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  background: linear-gradient(90deg, #ffe6ef 60%, #ffd6e6 100%);
+  color: #e50914;
+  font-weight: 700;
+  font-size: 1.08rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #ffb6c155;
+  padding: 0.7em 1.5em;
+  margin-left: 1em;
+  animation: fadeIn 0.4s;
+  transition: opacity 0.3s;
+}
+.whyBookTestimonialLoginIcon {
+  font-size: 1.5em;
+  margin-right: 0.2em;
+  opacity: 0.85;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- End Testimonial Section --- */

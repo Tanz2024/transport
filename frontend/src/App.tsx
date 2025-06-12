@@ -20,7 +20,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 
 // Protected Pages
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
-import Profile from './pages/Profile/Profile';
+import Profile from './pages/Profile';
 
 const App: React.FC = () => {
   return (

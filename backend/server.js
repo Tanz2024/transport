@@ -268,7 +268,7 @@ app.get('/api/users/:id', authenticateToken, async (req, res) => {
   const rows = await query(res,
     `SELECT id, name, email, phone_number, role,
             profile_image, preferred_currency, preferred_country,
-            bio, gender, date_of_birth,
+            bio, gender, date_of_birth, created_at,
             booking_preferences, verified, referral_code, referred_by
      FROM users
      WHERE id = $1`,
@@ -289,8 +289,13 @@ app.post('/api/users', async (req, res) => {
   }
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // ✅ Check if email already exists first
+    const existingUser = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
+    if (existingUser.rows.length > 0) {
+      return res.status(409).json({ error: 'Email already registered, please login.' });
+    }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
     const rows = await query(res,
       `INSERT INTO users (name, email, password_hash, phone_number)
        VALUES ($1, $2, $3, $4)
@@ -300,9 +305,7 @@ app.post('/api/users', async (req, res) => {
 
     res.status(201).json(rows[0]);
   } catch (err) {
-    if (err.message.includes('duplicate key value')) {
-      return res.status(409).json({ error: 'Email already registered' });
-    }
+    console.error('User registration error:', err);
     res.status(500).json({ error: 'Registration failed' });
   }
 });
@@ -325,23 +328,33 @@ app.post('/api/auth/login', async (req, res) => {
     { expiresIn: '2h' }
   );
 
-  res.json({
-    token,
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      phone_number: user.phone_number,
-      role: user.role,
-      profile_image: user.profile_image,
-      preferred_currency: user.preferred_currency,
-      preferred_country: user.preferred_country,
-      booking_preferences: user.booking_preferences,
-      verified: user.verified,
-      referral_code: user.referral_code,
-      referred_by: user.referred_by
-    }
-  });
+res.json({
+  token,
+  user: {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    phone_number: user.phone_number,
+    role: user.role,
+    profile_image: user.profile_image,
+    preferred_currency: user.preferred_currency,
+    preferred_country: user.preferred_country,
+    booking_preferences: user.booking_preferences,
+    verified: user.verified,
+    referral_code: user.referral_code,
+    referred_by: user.referred_by,
+    bio: user.bio,
+    gender: user.gender,
+    date_of_birth: user.date_of_birth,
+    two_factor_enabled: user.two_factor_enabled,
+    created_at: user.created_at,
+    city: user.city,
+    state: user.state,
+    country: user.country
+  }
+});
+
+
 });
 // ─── UPDATE USER ───────────────────────────────────────────────────────
 app.put('/api/users/:id', authenticateToken, async (req, res) => {
@@ -357,6 +370,18 @@ app.put('/api/users/:id', authenticateToken, async (req, res) => {
     delete updates.password;
   }
 
+  // Only allow updating these fields:
+const allowedFields = [
+  'name', 'first_name', 'middle_name', 'last_name', 'full_name',
+  'phone_number', 'profile_image', 'preferred_currency', 'preferred_country',
+  'bio', 'gender', 'date_of_birth', 'two_factor_enabled', 'booking_preferences',
+  'city', 'state', 'country'
+];
+
+  Object.keys(updates).forEach(key => {
+    if (!allowedFields.includes(key)) delete updates[key];
+  });
+
   const cols = Object.keys(updates);
   const vals = Object.values(updates);
 
@@ -367,13 +392,15 @@ app.put('/api/users/:id', authenticateToken, async (req, res) => {
   const set = cols.map((col, idx) => `${col} = $${idx + 1}`).join(', ');
 
   const rows = await query(res,
-    `UPDATE users SET ${set} WHERE id = $${cols.length + 1}
-     RETURNING id, name, email, phone_number, role,
-               profile_image, preferred_currency, preferred_country,
-               bio, gender, date_of_birth,
-               booking_preferences, verified, referral_code, referred_by`,
-    [...vals, req.params.id]
-  );
+  `UPDATE users SET ${set} WHERE id = $${cols.length + 1}
+   RETURNING id, name, first_name, middle_name, last_name, full_name, email, phone_number, role,
+             profile_image, preferred_currency, preferred_country,
+             bio, gender, date_of_birth, two_factor_enabled, created_at,
+             booking_preferences, verified, referral_code, referred_by,
+             city, state, country`,
+  [...vals, req.params.id]
+);
+
 
   res.json(rows[0]);
 });
@@ -473,11 +500,45 @@ app.get('/api/cities-with-states', async (req, res) => {
 // ─── BOOKINGS ─────────────────────────────────────────────────────────────────
 // ─── BOOKINGS ────────────────────────────────────────────────────────────────
 
-// 1. List all bookings
-app.get('/api/bookings', async (req, res) => {
+// 1. List all bookings (user-specific, secure)
+app.get('/api/bookings', authenticateToken, async (req, res) => {
   try {
-    const rows = await query(res, 'SELECT * FROM bookings');
-    res.json(rows);
+    const userId = req.user.id;
+    // One-way bookings
+    const oneWayRows = await pool.query(
+      `SELECT b.*, s.departure_time, s.arrival_time, os.city as from_location, ds.city as to_location
+       FROM bookings b
+       JOIN schedules s ON b.schedule_id = s.id
+       JOIN routes r ON s.route_id = r.id
+       JOIN stations os ON r.origin_id = os.id
+       JOIN stations ds ON r.destination_id = ds.id
+       WHERE b.user_id = $1 AND b.status != 'cancelled' AND b.id NOT IN (SELECT outbound_booking_id FROM round_trip_bookings UNION SELECT return_booking_id FROM round_trip_bookings)
+       ORDER BY s.departure_time DESC`,
+      [userId]
+    );
+    // Round-trip bookings
+    const roundTripRows = await pool.query(
+      `SELECT rtb.id as round_trip_id,
+              ob.status as ob_status, ob.seat_number as ob_seat_number, ob.total_price as ob_total_price, ob.qr_code_url as ob_qr_code_url,
+              os.city as ob_from_location, ds.city as ob_to_location, s.departure_time as ob_departure_time,
+              rb.status as rb_status, rb.seat_number as rb_seat_number, rb.total_price as rb_total_price, rb.qr_code_url as rb_qr_code_url,
+              os2.city as rb_from_location, ds2.city as rb_to_location, s2.departure_time as rb_departure_time
+       FROM round_trip_bookings rtb
+       JOIN bookings ob ON rtb.outbound_booking_id = ob.id
+       JOIN bookings rb ON rtb.return_booking_id = rb.id
+       JOIN schedules s ON ob.schedule_id = s.id
+       JOIN routes r ON s.route_id = r.id
+       JOIN stations os ON r.origin_id = os.id
+       JOIN stations ds ON r.destination_id = ds.id
+       JOIN schedules s2 ON rb.schedule_id = s2.id
+       JOIN routes r2 ON s2.route_id = r2.id
+       JOIN stations os2 ON r2.origin_id = os2.id
+       JOIN stations ds2 ON r2.destination_id = ds2.id
+       WHERE ob.user_id = $1 AND rb.user_id = $1 AND ob.status != 'cancelled' AND rb.status != 'cancelled'
+       ORDER BY s.departure_time DESC`,
+      [userId]
+    );
+    res.json({ oneWay: oneWayRows.rows, roundTrip: roundTripRows.rows });
   } catch (err) {
     console.error('Error listing bookings:', err);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -1404,4 +1465,277 @@ app.get('/', (req, res) => {
 // ─── START SERVER ─────────────────────────────────────────────────────────────
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);
+});
+
+// ─── REVIEWS (Testimonials) ───────────────────────────────────────────────
+import { body, validationResult } from 'express-validator';
+
+// Middleware: require login
+function requireAuth(req, res, next) {
+  if (!req.session || !req.session.userId) {
+    return res.status(401).json({ error: 'Login required to post a review.' });
+  }
+  next();
+}
+
+// Middleware: prevent duplicate reviews (one per user per 24h)
+async function preventDuplicateReview(req, res, next) {
+  const userId = req.session.userId;
+  const { review_text } = req.body;
+  const { rows } = await pool.query(
+    `SELECT * FROM reviews WHERE user_id = $1 AND review_text = $2 AND created_at > NOW() - INTERVAL '24 hours'`,
+    [userId, review_text]
+  );
+  if (rows.length > 0) {
+    return res.status(429).json({ error: 'You have already posted this review recently.' });
+  }
+  next();
+}
+
+// GET all reviews (latest first)
+app.get('/api/reviews', async (req, res) => {
+  const { rows } = await pool.query(
+    `SELECT r.id, r.name, r.location, r.review_text, r.created_at
+     FROM reviews r
+     ORDER BY r.created_at DESC LIMIT 100`
+  );
+  res.json(rows);
+});
+
+// POST a new review (login required, no spam, no duplicate)
+app.post(
+  '/api/reviews',
+  requireAuth,
+  body('review_text').isLength({ min: 10, max: 1000 }),
+  preventDuplicateReview,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ error: 'Review must be 10-1000 characters.' });
+    }
+    const userId = req.session.userId;
+    // Get user info
+    const userRes = await pool.query('SELECT first_name, last_name, city FROM users WHERE id = $1', [userId]);
+    if (!userRes.rows.length) return res.status(401).json({ error: 'User not found.' });
+    const { first_name, last_name, city } = userRes.rows[0];
+    const name = `${first_name} ${last_name}`;
+    const location = city || '';
+    const { review_text } = req.body;
+    const insertRes = await pool.query(
+      `INSERT INTO reviews (user_id, name, location, review_text) VALUES ($1, $2, $3, $4) RETURNING id, name, location, review_text, created_at`,
+      [userId, name, location, review_text]
+    );
+    res.status(201).json(insertRes.rows[0]);
+  }
+);
+
+// PUT (edit) a review (only by owner, no duplicate, no spam)
+app.put(
+  '/api/reviews/:id',
+  requireAuth,
+  body('review_text').isLength({ min: 10, max: 1000 }),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ error: 'Review must be 10-1000 characters.' });
+    }
+    const userId = req.session.userId;
+    const { id } = req.params;
+    const { review_text } = req.body;
+    // Only allow editing own review
+    const { rows } = await pool.query('SELECT * FROM reviews WHERE id = $1 AND user_id = $2', [id, userId]);
+    if (!rows.length) return res.status(403).json({ error: 'Not allowed.' });
+    // Prevent duplicate
+    const { rows: dupRows } = await pool.query(
+      `SELECT * FROM reviews WHERE user_id = $1 AND review_text = $2 AND id != $3 AND created_at > NOW() - INTERVAL '24 hours'`,
+      [userId, review_text, id]
+    );
+    if (dupRows.length > 0) {
+      return res.status(429).json({ error: 'You have already posted this review recently.' });
+    }
+    const updateRes = await pool.query(
+      `UPDATE reviews SET review_text = $1 WHERE id = $2 RETURNING id, name, location, review_text, created_at`,
+      [review_text, id]
+    );
+    res.json(updateRes.rows[0]);
+  }
+);
+
+// DELETE a review (only by owner)
+app.delete('/api/reviews/:id', requireAuth, async (req, res) => {
+  const userId = req.session.userId;
+  const { id } = req.params;
+  const { rows } = await pool.query('SELECT * FROM reviews WHERE id = $1 AND user_id = $2', [id, userId]);
+  if (!rows.length) return res.status(403).json({ error: 'Not allowed.' });
+  await pool.query('DELETE FROM reviews WHERE id = $1', [id]);
+  res.status(204).end();
+});
+
+// ─── WALLET & REWARDS (PRODUCTION LEVEL) ───────────────────────────────
+// Get wallet info (balance, EasiPoints, saved cards)
+app.get('/api/wallet', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    // Fetch wallet balance and EasiPoints
+    const walletRows = await pool.query(
+      'SELECT wallet_balance, easipoints FROM users WHERE id = $1',
+      [userId]
+    );
+    // Fetch saved cards (Stripe customer)
+    let cards = [];
+    const user = walletRows.rows[0];
+    if (user && user.stripe_customer_id) {
+      const paymentMethods = await stripe.paymentMethods.list({
+        customer: user.stripe_customer_id,
+        type: 'card',
+      });
+      cards = paymentMethods.data.map(card => ({
+        id: card.id,
+        brand: card.card.brand,
+        last4: card.card.last4,
+        exp_month: card.card.exp_month,
+        exp_year: card.card.exp_year,
+      }));
+    }
+    res.json({
+      wallet_balance: user.wallet_balance || 0,
+      easipoints: user.easipoints || 0,
+      cards,
+    });
+  } catch (err) {
+    console.error('❌ Error fetching wallet info:', err);
+    res.status(500).json({ error: 'Failed to fetch wallet info' });
+  }
+});
+
+// Get wallet transaction history
+app.get('/api/wallet/transactions', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const rows = await pool.query(
+      'SELECT * FROM wallet_transactions WHERE user_id = $1 ORDER BY created_at DESC LIMIT 50',
+      [userId]
+    );
+    res.json(rows.rows);
+  } catch (err) {
+    console.error('❌ Error fetching wallet transactions:', err);
+    res.status(500).json({ error: 'Failed to fetch wallet transactions' });
+  }
+});
+
+// Top up wallet (Stripe, FPX, TNG)
+app.post('/api/wallet/topup', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { amount, method, payment_method_id } = req.body;
+    if (!amount || amount < 1) return res.status(400).json({ error: 'Invalid amount' });
+    if (!['card', 'fpx', 'tng'].includes(method)) return res.status(400).json({ error: 'Invalid method' });
+
+    // Stripe card top-up
+    if (method === 'card') {
+      // Ensure user has a Stripe customer
+      let userRow = await pool.query('SELECT stripe_customer_id FROM users WHERE id = $1', [userId]);
+      let customerId = userRow.rows[0]?.stripe_customer_id;
+      if (!customerId) {
+        const customer = await stripe.customers.create({
+          metadata: { user_id: userId }
+        });
+        await pool.query('UPDATE users SET stripe_customer_id = $1 WHERE id = $2', [customer.id, userId]);
+        customerId = customer.id;
+      }
+      // Create a PaymentIntent
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: Math.round(amount * 100),
+        currency: 'myr',
+        customer: customerId,
+        payment_method: payment_method_id,
+        confirm: true,
+        metadata: { user_id: userId, type: 'wallet_topup' },
+      });
+      // On success, update wallet and log transaction
+      await pool.query('UPDATE users SET wallet_balance = wallet_balance + $1 WHERE id = $2', [amount, userId]);
+      await pool.query(
+        'INSERT INTO wallet_transactions (user_id, type, amount, method, status, reference) VALUES ($1, $2, $3, $4, $5, $6)',
+        [userId, 'topup', amount, 'card', 'success', paymentIntent.id]
+      );
+      return res.json({ success: true, wallet_balance: (await pool.query('SELECT wallet_balance FROM users WHERE id = $1', [userId])).rows[0].wallet_balance });
+    }
+    // FPX and TNG: Simulate or integrate with real payment gateway
+    // For now, simulate success
+    await pool.query('UPDATE users SET wallet_balance = wallet_balance + $1 WHERE id = $2', [amount, userId]);
+    await pool.query(
+      'INSERT INTO wallet_transactions (user_id, type, amount, method, status, reference) VALUES ($1, $2, $3, $4, $5, $6)',
+      [userId, 'topup', amount, method, 'success', 'simulated']
+    );
+    res.json({ success: true, wallet_balance: (await pool.query('SELECT wallet_balance FROM users WHERE id = $1', [userId])).rows[0].wallet_balance });
+  } catch (err) {
+    console.error('❌ Wallet top-up failed:', err);
+    res.status(500).json({ error: 'Wallet top-up failed' });
+  }
+});
+
+// Redeem EasiPoints for wallet credit
+app.post('/api/wallet/redeem', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { points } = req.body;
+    if (!points || points < 1) return res.status(400).json({ error: 'Invalid points' });
+    // Assume 1 point = RM0.10
+    const credit = points * 0.1;
+    // Check user has enough points
+    const userRow = await pool.query('SELECT easipoints FROM users WHERE id = $1', [userId]);
+    if ((userRow.rows[0]?.easipoints || 0) < points) return res.status(400).json({ error: 'Not enough EasiPoints' });
+    await pool.query('UPDATE users SET easipoints = easipoints - $1, wallet_balance = wallet_balance + $2 WHERE id = $3', [points, credit, userId]);
+    await pool.query(
+      'INSERT INTO wallet_transactions (user_id, type, amount, method, status, reference) VALUES ($1, $2, $3, $4, $5, $6)',
+      [userId, 'redeem', credit, 'easipoints', 'success', 'easipoints']
+    );
+    res.json({ success: true, wallet_balance: (await pool.query('SELECT wallet_balance FROM users WHERE id = $1', [userId])).rows[0].wallet_balance });
+  } catch (err) {
+    console.error('❌ EasiPoints redemption failed:', err);
+    res.status(500).json({ error: 'EasiPoints redemption failed' });
+  }
+});
+
+// Remove a saved card (Stripe)
+app.delete('/api/wallet/cards/:id', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const cardId = req.params.id;
+    // Fetch user's Stripe customer
+    const userRow = await pool.query('SELECT stripe_customer_id FROM users WHERE id = $1', [userId]);
+    const customerId = userRow.rows[0]?.stripe_customer_id;
+    if (!customerId) return res.status(400).json({ error: 'No Stripe customer' });
+    // Detach card
+    await stripe.paymentMethods.detach(cardId);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('❌ Remove card failed:', err);
+    res.status(500).json({ error: 'Remove card failed' });
+  }
+});
+
+// Save a card to Stripe customer (no payment, just attach)
+app.post('/api/wallet/cards', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { payment_method_id } = req.body;
+    if (!payment_method_id) return res.status(400).json({ error: 'Missing payment_method_id' });
+    // Fetch or create Stripe customer
+    let userRow = await pool.query('SELECT stripe_customer_id FROM users WHERE id = $1', [userId]);
+    let customerId = userRow.rows[0]?.stripe_customer_id;
+    if (!customerId) {
+      const customer = await stripe.customers.create({ metadata: { user_id: userId } });
+      await pool.query('UPDATE users SET stripe_customer_id = $1 WHERE id = $2', [customer.id, userId]);
+      customerId = customer.id;
+    }
+    // Attach payment method to customer
+    await stripe.paymentMethods.attach(payment_method_id, { customer: customerId });
+    // Set as default payment method
+    await stripe.customers.update(customerId, { invoice_settings: { default_payment_method: payment_method_id } });
+    res.json({ success: true });
+  } catch (err) {
+    console.error('❌ Save card failed:', err);
+    res.status(500).json({ error: 'Save card failed' });
+  }
 });

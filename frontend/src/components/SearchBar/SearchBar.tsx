@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './SearchBar.module.css';
+import LottieIcon from '../LottieIcon';
+import { transportLotties } from '../transportLotties';
+import { useLanguage } from '../../context/LanguageContext';
+import { translations } from '../../context/translations';
 
 type Mode = 'bus' | 'ferry' | 'train';
 type TripType = 'oneway' | 'roundtrip';
@@ -32,6 +36,9 @@ const SearchBar: React.FC = () => {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [showPassengerDropdown, setShowPassengerDropdown] = useState(false);
+
+  const { language } = useLanguage();
+  const t = translations[language];
 
   // Update mode from URL when it changes
   useEffect(() => {
@@ -76,10 +83,11 @@ const SearchBar: React.FC = () => {
     setShowPassengerDropdown(false);
   };
 
-  const getPassengerLabel = () => {
-    const a = `${adults} Adult${adults > 1 ? 's' : ''}`;
-    const c = children > 0 ? `, ${children} Child${children > 1 ? 'ren' : ''}` : '';
-    return a + c;
+  const getPassengerLabel = (t: any) => {
+    let label = '';
+    if (adults > 0) label += `${adults} ${t.adults || 'Adult'}${adults > 1 ? 's' : ''}`;
+    if (children > 0) label += `, ${children} ${t.children || 'Child'}${children > 1 ? 'ren' : ''}`;
+    return label || t.oneAdult || '1 Adult';
   };
 
   return (
@@ -93,9 +101,10 @@ const SearchBar: React.FC = () => {
             className={`${styles.tab} ${mode === tab ? styles.activeTab : ''}`}
             aria-pressed={mode === tab}
           >
-            {tab === 'bus' && '🚌 Bus'}
-            {tab === 'ferry' && '⛴ Ferry'}
-            {tab === 'train' && '🚆 Train'}
+            <span style={{ display: 'inline-block', verticalAlign: 'middle', width: 28, height: 28, marginRight: 6 }}>
+              <LottieIcon animationData={transportLotties[tab]} width={28} height={28} ariaLabel={`${tab} icon`} />
+            </span>
+            {t[tab + 'Title'] || tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
         ))}
       </div>
@@ -108,7 +117,7 @@ const SearchBar: React.FC = () => {
             checked={tripType === 'oneway'}
             onChange={() => setTripType('oneway')}
           />
-          One Way
+          {t.oneWay || 'One Way'}
         </label>
         <label>
           <input
@@ -116,21 +125,21 @@ const SearchBar: React.FC = () => {
             checked={tripType === 'roundtrip'}
             onChange={() => setTripType('roundtrip')}
           />
-          Round Trip
+          {t.roundTrip || 'Round Trip'}
         </label>
       </div>
 
       {/* Travel form */}
       <div className={styles.form}>
         <select value={from} onChange={(e) => setFrom(e.target.value)}>
-          <option value="">From</option>
+          <option value="">{t.from || 'From'}</option>
           {MALAYSIAN_CITIES.map((city) => (
             <option key={city} value={city}>{city}</option>
           ))}
         </select>
 
         <select value={to} onChange={(e) => setTo(e.target.value)}>
-          <option value="">To</option>
+          <option value="">{t.to || 'To'}</option>
           {MALAYSIAN_CITIES.map((city) => (
             <option key={city} value={city}>{city}</option>
           ))}
@@ -140,6 +149,7 @@ const SearchBar: React.FC = () => {
           type="date"
           value={departureDate}
           onChange={(e) => setDepartureDate(e.target.value)}
+          placeholder={t.datePlaceholder || 'dd/mm/yyyy'}
         />
 
         {tripType === 'roundtrip' && (
@@ -147,6 +157,7 @@ const SearchBar: React.FC = () => {
             type="date"
             value={returnDate}
             onChange={(e) => setReturnDate(e.target.value)}
+            placeholder={t.returnDatePlaceholder || 'dd/mm/yyyy'}
           />
         )}
 
@@ -165,13 +176,13 @@ const SearchBar: React.FC = () => {
             aria-haspopup="dialog"
             aria-expanded={showPassengerDropdown}
           >
-            {getPassengerLabel()} <span>▼</span>
+            {getPassengerLabel(t)} <span>▼</span>
           </div>
 
           {showPassengerDropdown && (
-            <div className={styles.passengerDropdown} role="dialog" aria-label="Passenger Selection">
+            <div className={styles.passengerDropdown} role="dialog" aria-label={t.passengerSelection || 'Passenger Selection'}>
               <div className={styles.passengerRow}>
-                <span><strong>Adults</strong></span>
+                <span><strong>{t.adults || 'Adults'}</strong></span>
                 <div className={styles.counter}>
                   <button onClick={() => setAdults(Math.max(1, adults - 1))}>−</button>
                   <span>{adults}</span>
@@ -180,9 +191,9 @@ const SearchBar: React.FC = () => {
               </div>
               <div className={styles.passengerRow}>
                 <span>
-                  <strong>Children (0–17)</strong>
+                  <strong>{t.children || 'Children (0–17)'}</strong>
                   <br />
-                  <small>From 0 to 17 years old</small>
+                  <small>{t.childrenAge || 'From 0 to 17 years old'}</small>
                 </span>
                 <div className={styles.counter}>
                   <button onClick={() => setChildren(Math.max(0, children - 1))}>−</button>
@@ -195,7 +206,7 @@ const SearchBar: React.FC = () => {
         </div>
 
         <button onClick={handleSearch} className={styles.searchButton}>
-          Search
+          {t.search || 'Search'}
         </button>
       </div>
     </div>

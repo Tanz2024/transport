@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaUser, FaChild, FaCalendarAlt, FaMapMarkerAlt, FaWifi, FaPlug, FaToilet, FaTv, FaSnowflake, FaCoffee, FaBus, FaTrain, FaShip, FaRedo, FaCheck, FaTimes, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaUser, FaChild, FaCalendarAlt, FaMapMarkerAlt, FaWifi, FaPlug, FaToilet, FaTv, FaSnowflake, FaCoffee, FaRedo, FaChevronDown, FaChevronUp, FaBed } from 'react-icons/fa';
+import { MdRestaurant } from 'react-icons/md';
 import { useLanguage } from '../../context/LanguageContext';
 import styles from './Search.module.css';
-
-const transportIcons: Record<string, string> = {
-  bus: '🚌',
-  train: '🚆',
-  ferry: '⛴️',
-};
+import LottieIcon from '../../components/LottieIcon';
+import { transportLotties } from '../../components/transportLotties';
 
 const parseQuery = (search: string) => {
   const params = new URLSearchParams(search);
@@ -31,20 +28,33 @@ const formatDate = (date: string) =>
 
 // AmenitiesBar component
 const amenityIconMap: Record<string, React.ReactNode> = {
-  wifi: <FaWifi />, power: <FaPlug />, toilet: <FaToilet />, tv: <FaTv />, ac: <FaSnowflake />, coffee: <FaCoffee />
-};
-const vehicleTypeIcon: Record<string, React.ReactNode> = {
-  bus: <FaBus />, train: <FaTrain />, ferry: <FaShip />
+  wifi: <FaWifi />, 
+  power: <FaPlug />, 
+  toilet: <FaToilet />, 
+  tv: <FaTv />, 
+  ac: <FaSnowflake />, 
+  coffee: <FaCoffee />,
+  sleeper: <FaBed />,
+  restroom: <FaToilet />,
+  dining: <MdRestaurant />,
+  'dining car': <MdRestaurant />
 };
 const vehicleTypeClass: Record<string, string> = {
   bus: styles.amenityBus, train: styles.amenityTrain, ferry: styles.amenityFerry
+};
+const vehicleTypeLottie: Record<string, React.ReactNode> = {
+  bus: <LottieIcon animationData={transportLotties.bus} width={32} height={32} ariaLabel="bus icon" />, 
+  train: <LottieIcon animationData={transportLotties.train} width={32} height={32} ariaLabel="train icon" />, 
+  ferry: <LottieIcon animationData={transportLotties.ferry} width={32} height={32} ariaLabel="ferry icon" />
 };
 const AmenitiesBar: React.FC<{ amenities: string[], vehicleType: string }> = ({ amenities, vehicleType }) => (
   <div className={styles.amenitiesBar}>
     {[...new Set(amenities.map(a => a.trim()))].map((a, i) => (
       <span key={i} className={`${styles.amenity} ${vehicleTypeClass[vehicleType] || ''}`}> 
         <span className={styles.amenityIcon} aria-label={a} title={a}>
-          {amenityIconMap[a.toLowerCase()] || vehicleTypeIcon[vehicleType] || '?'}
+          {['bus','train','ferry'].includes(a.toLowerCase())
+            ? vehicleTypeLottie[a.toLowerCase()]
+            : amenityIconMap[a.toLowerCase()] || '?'}
         </span>
         <span className={styles.amenityTooltip}>{a}</span>
       </span>
@@ -184,6 +194,10 @@ const amenitiesList = [
   { key: 'tv', label: 'TV', icon: <FaTv /> },
   { key: 'ac', label: 'AC', icon: <FaSnowflake /> },
   { key: 'coffee', label: 'Coffee', icon: <FaCoffee /> },
+  { key: 'sleeper', label: 'Sleeper', icon: <FaBed /> },
+  { key: 'restroom', label: 'Restroom', icon: <FaToilet /> },
+  { key: 'dining', label: 'Dining Car', icon: <MdRestaurant /> },
+  { key: 'dining car', label: 'Dining Car', icon: <MdRestaurant /> },
 ];
 
 // Define sortOptions at the top of the component
@@ -619,7 +633,9 @@ const Search: React.FC = () => {
           <>
             {currentTrips.map(s => (
               <div key={s.id} className={styles.card}>
-                <div className={styles.icon}>{transportIcons[s.vehicle_type?.toLowerCase?.()] || '🛺'}</div>
+                <div className={styles.icon}>
+                  {vehicleTypeLottie[s.vehicle_type?.toLowerCase?.()] || <span aria-label="vehicle">🛺</span>}
+                </div>
                 <div className={styles.details}>
                   <div className={styles.routeSummary}>
                     <span><FaMapMarkerAlt /> {s.origin_city} → {s.destination_city}</span>

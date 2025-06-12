@@ -19,6 +19,7 @@ const translations = {
     whatsapp: 'WhatsApp',
     address: 'Address',
     newsletter: 'Stay Updated',
+    newsletterEmailPlaceholder: 'Enter your email',
     subscribe: 'Subscribe',
     language: 'Language',
     copyright: 'All rights reserved.'
@@ -38,6 +39,7 @@ const translations = {
     whatsapp: 'WhatsApp',
     address: 'Alamat',
     newsletter: 'Langgan Berita',
+    newsletterEmailPlaceholder: 'Masukkan emel anda',
     subscribe: 'Langgan',
     language: 'Bahasa',
     copyright: 'Hak cipta terpelihara.'
@@ -57,6 +59,7 @@ const translations = {
     whatsapp: 'WhatsApp',
     address: '地址',
     newsletter: '订阅资讯',
+    newsletterEmailPlaceholder: '输入您的电子邮件',
     subscribe: '订阅',
     language: '语言',
     copyright: '版权所有。'
@@ -111,7 +114,7 @@ const Footer = () => {
         <div className={styles.column}>
           <h4>{t.newsletter}</h4>
           <form className={styles.newsletter}>
-            <input type="email" placeholder="Enter your email" />
+            <input type="email" placeholder={t.newsletterEmailPlaceholder} />
             <button type="submit">{t.subscribe}</button>
           </form>
           {/* Language Switcher */}
